@@ -22,5 +22,7 @@ namespace Business.implements
             var result = await _playerRepository.FindAllAsync();
             return result;
         }
+
+      
     }
 }
