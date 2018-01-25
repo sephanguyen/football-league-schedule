@@ -9,7 +9,7 @@ namespace Model.Model
         [KeyProperty(Identity = true)]
         public int Id { get; set; }
 
-        [StoredAs("Name")]
+        [StoredAs("NamePlayer")]
         public string Name { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Business.implements;
 using Business.interfaces;
+using Microsoft.Extensions.Configuration;
 using Repositories.Repositories.implements;
 using Repositories.Repositories.interfaces;
 using System;
@@ -26,10 +27,13 @@ namespace FootBallLeagueSchedule.DIConfig
             //builder.RegisterType<PlayersRepository>()
             //    .As<IPlayersRepository>()
             //    .InstancePerLifetimeScope();
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json.config", optional: true)
+            .Build();
             builder.RegisterType<PlayersRepository>()
                 .As<IPlayersRepository>().WithParameter(
                         "connection",
-                        new SqlConnection("MyConnectionStringHere"))
+                        new SqlConnection(configuration["ConnectionStrings:FixtureLeagueContext"]))
                 .InstancePerLifetimeScope();
             //builder.Register(c => new SqlConnection("MyConnectionStringHere"))
             //    .As<IDbConnection>().InstancePerLifetimeScope();
