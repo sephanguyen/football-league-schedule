@@ -2,6 +2,7 @@
 using Business.implements;
 using Business.interfaces;
 using Microsoft.Extensions.Configuration;
+using Repositories.ConnectionBase;
 using Repositories.Repositories.implements;
 using Repositories.Repositories.interfaces;
 using System;
@@ -30,8 +31,8 @@ namespace FootBallLeagueSchedule.DIConfig
             IConfigurationRoot configuration = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json.config", optional: true)
             .Build();
-            builder.RegisterType<PlayersRepository>()
-                .As<IPlayersRepository>().WithParameter(
+            builder.RegisterType<DbContext>()
+                .As<IDbContext>().WithParameter(
                         "connection",
                         new SqlConnection("Server=72bb22f1-a816-43c8-a3d0-a860006240a7.sqlserver.sequelizer.com;Database=db72bb22f1a81643c8a3d0a860006240a7;User ID=nqaquqlqjupnrmtn;Password=nSFqqWkZUP3yUPzxBSsS8nLQ4AMeC4y8Y2HShogRCi2iTd3Nvoe7jcFafYvWifvY;"))
                 .InstancePerLifetimeScope();

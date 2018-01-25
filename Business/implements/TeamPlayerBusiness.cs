@@ -1,5 +1,6 @@
 ﻿using Business.interfaces;
 using Model.Model;
+using Repositories.ConnectionBase;
 using Repositories.Repositories.interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,16 +11,16 @@ namespace Business.implements
 {
     public class TeamPlayerBusiness : BusinessBase, ITeamPlayerBusiness
     {
-        private readonly IPlayersRepository _playerRepository;
-        public TeamPlayerBusiness(IPlayersRepository playerRepository)
+        private readonly IDbContext _dbContext;
+        public TeamPlayerBusiness(IDbContext dbContext)
         {
-            if (playerRepository == null)
-                throw new ArgumentException("playerRepository is null");
-            _playerRepository = playerRepository;
+            if (dbContext == null)
+                throw new ArgumentException("dbContext is null");
+            _dbContext = dbContext;
         }
         public async Task<IEnumerable<PlayerModel>> GetAllPlayerWithTeam()
         {
-            var result = await _playerRepository.FindAllAsync();
+            var result = await _dbContext.PlayerRepository.FindAllAsync();
             return result;
         }
 
