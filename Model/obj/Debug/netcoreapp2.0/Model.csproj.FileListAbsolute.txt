@@ -1,9 +1,0 @@
-E:\HCDaiHoc\NMCNPMem\DoAnNMCNPM-FootballLeagueSchedure\FootBall-League-Schedule\Model\bin\Debug\netcoreapp2.0\Model.deps.json
-E:\HCDaiHoc\NMCNPMem\DoAnNMCNPM-FootballLeagueSchedure\FootBall-League-Schedule\Model\bin\Debug\netcoreapp2.0\Model.dll
-E:\HCDaiHoc\NMCNPMem\DoAnNMCNPM-FootballLeagueSchedure\FootBall-League-Schedule\Model\bin\Debug\netcoreapp2.0\Model.pdb
-E:\HCDaiHoc\NMCNPMem\DoAnNMCNPM-FootballLeagueSchedure\FootBall-League-Schedule\Model\obj\Debug\netcoreapp2.0\Model.csprojResolveAssemblyReference.cache
-E:\HCDaiHoc\NMCNPMem\DoAnNMCNPM-FootballLeagueSchedure\FootBall-League-Schedule\Model\obj\Debug\netcoreapp2.0\Model.csproj.CoreCompileInputs.cache
-E:\HCDaiHoc\NMCNPMem\DoAnNMCNPM-FootballLeagueSchedure\FootBall-League-Schedule\Model\obj\Debug\netcoreapp2.0\Model.AssemblyInfoInputs.cache
-E:\HCDaiHoc\NMCNPMem\DoAnNMCNPM-FootballLeagueSchedure\FootBall-League-Schedule\Model\obj\Debug\netcoreapp2.0\Model.AssemblyInfo.cs
-E:\HCDaiHoc\NMCNPMem\DoAnNMCNPM-FootballLeagueSchedure\FootBall-League-Schedule\Model\obj\Debug\netcoreapp2.0\Model.dll
-E:\HCDaiHoc\NMCNPMem\DoAnNMCNPM-FootballLeagueSchedure\FootBall-League-Schedule\Model\obj\Debug\netcoreapp2.0\Model.pdb
