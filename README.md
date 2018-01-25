@@ -1,6 +1,6 @@
-# manage-national-team-backend
-Install dotnet core above 2.0.
-Cmd type: dotnet restore [install packages dependency(Develop enviroment)]
-Go to FootBall-League-Schedule Folder
-Cmd type: dotnet run 
-Go to Brower type: http://localhost:57500/swagger/
+# manage-national-team-backend__
+Install dotnet core above 2.0.__
+Cmd type: dotnet restore [install packages dependency(Develop enviroment)]__
+Go to FootBall-League-Schedule Folder__
+Cmd type: dotnet run __
+Go to Brower type: http://localhost:57500/swagger/__
