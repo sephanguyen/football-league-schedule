@@ -13,13 +13,14 @@ namespace Business.implements
         private readonly IPlayersRepository _playerRepository;
         public TeamPlayerBusiness(IPlayersRepository playerRepository)
         {
-            if (_playerRepository == null)
+            if (playerRepository == null)
                 throw new ArgumentException("playerRepository is null");
             _playerRepository = playerRepository;
         }
         public async Task<IEnumerable<PlayerModel>> GetAllPlayerWithTeam()
         {
-            return await _playerRepository.FindAllAsync();
+            var result = await _playerRepository.FindAllAsync();
+            return result;
         }
     }
 }

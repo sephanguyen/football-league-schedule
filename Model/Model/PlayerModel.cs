@@ -1,15 +1,17 @@
 ﻿
-using MicroOrm.Pocos.SqlGenerator.Attributes;
+using MicroOrm.Dapper.Repositories.Attributes;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Model
 {
-    [StoredAs("Players")]
+    [Table("Players")]
     public class PlayerModel
     {
-        [KeyProperty(Identity = true)]
+        [Key, Identity]
         public int Id { get; set; }
 
-        [StoredAs("NamePlayer")]
+        [Column("NamePlayer")]
         public string Name { get; set; }
     }
 }

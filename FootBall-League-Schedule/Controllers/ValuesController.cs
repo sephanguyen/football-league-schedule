@@ -2,18 +2,28 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Business.interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Model.Model;
 
 namespace FootBallLeagueSchedule.Controllers
 {
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
+        private readonly ITeamPlayerBusiness _teamPlayerBusiness;
+
+        public ValuesController(ITeamPlayerBusiness teamPlayerBusiness)
+        {
+            if (teamPlayerBusiness == null)
+                throw new ArgumentException("teamPlayerBusiness is null");
+            _teamPlayerBusiness = teamPlayerBusiness;
+        }
         // GET api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IEnumerable<PlayerModel>> Get()
         {
-            return new string[] { "value1", "value2" };
+            return await _teamPlayerBusiness.GetAllPlayerWithTeam();
         }
 
         // GET api/values/5

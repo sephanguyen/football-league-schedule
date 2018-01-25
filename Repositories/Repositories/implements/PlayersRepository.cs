@@ -1,6 +1,5 @@
 ﻿
 using System.Data;
-using MicroOrm.Dapper.Repositories;
 using Model.Model;
 using Repositories.Repositories.interfaces;
 
