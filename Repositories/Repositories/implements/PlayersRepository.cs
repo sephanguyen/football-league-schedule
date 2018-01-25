@@ -8,7 +8,7 @@ namespace Repositories.Repositories.implements
 {
     public class PlayersRepository : RepositoryBase<PlayerModel>, IPlayersRepository
     {
-        public PlayersRepository(IDbConnection connection) : base(connection)
+        public PlayersRepository(IDbConnection connection) :  base(connection)
         {
         }
     }
