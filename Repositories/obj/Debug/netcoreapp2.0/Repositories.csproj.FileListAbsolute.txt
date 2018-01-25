@@ -1,0 +1,11 @@
+E:\HCDaiHoc\NMCNPMem\DoAnNMCNPM-FootballLeagueSchedure\FootBall-League-Schedule\Repositories\bin\Debug\netcoreapp2.0\Repositories.deps.json
+E:\HCDaiHoc\NMCNPMem\DoAnNMCNPM-FootballLeagueSchedure\FootBall-League-Schedule\Repositories\bin\Debug\netcoreapp2.0\Repositories.dll
+E:\HCDaiHoc\NMCNPMem\DoAnNMCNPM-FootballLeagueSchedure\FootBall-League-Schedule\Repositories\bin\Debug\netcoreapp2.0\Repositories.pdb
+E:\HCDaiHoc\NMCNPMem\DoAnNMCNPM-FootballLeagueSchedure\FootBall-League-Schedule\Repositories\obj\Debug\netcoreapp2.0\Repositories.csprojResolveAssemblyReference.cache
+E:\HCDaiHoc\NMCNPMem\DoAnNMCNPM-FootballLeagueSchedure\FootBall-League-Schedule\Repositories\obj\Debug\netcoreapp2.0\Repositories.csproj.CoreCompileInputs.cache
+E:\HCDaiHoc\NMCNPMem\DoAnNMCNPM-FootballLeagueSchedure\FootBall-League-Schedule\Repositories\obj\Debug\netcoreapp2.0\Repositories.AssemblyInfoInputs.cache
+E:\HCDaiHoc\NMCNPMem\DoAnNMCNPM-FootballLeagueSchedure\FootBall-League-Schedule\Repositories\obj\Debug\netcoreapp2.0\Repositories.AssemblyInfo.cs
+E:\HCDaiHoc\NMCNPMem\DoAnNMCNPM-FootballLeagueSchedure\FootBall-League-Schedule\Repositories\obj\Debug\netcoreapp2.0\Repositories.dll
+E:\HCDaiHoc\NMCNPMem\DoAnNMCNPM-FootballLeagueSchedure\FootBall-League-Schedule\Repositories\obj\Debug\netcoreapp2.0\Repositories.pdb
+E:\HCDaiHoc\NMCNPMem\DoAnNMCNPM-FootballLeagueSchedure\FootBall-League-Schedule\Repositories\bin\Debug\netcoreapp2.0\Model.dll
+E:\HCDaiHoc\NMCNPMem\DoAnNMCNPM-FootballLeagueSchedure\FootBall-League-Schedule\Repositories\bin\Debug\netcoreapp2.0\Model.pdb

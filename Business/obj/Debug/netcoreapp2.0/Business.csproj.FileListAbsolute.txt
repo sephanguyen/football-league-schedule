@@ -1,0 +1,13 @@
+E:\HCDaiHoc\NMCNPMem\DoAnNMCNPM-FootballLeagueSchedure\FootBall-League-Schedule\Business\bin\Debug\netcoreapp2.0\Business.deps.json
+E:\HCDaiHoc\NMCNPMem\DoAnNMCNPM-FootballLeagueSchedure\FootBall-League-Schedule\Business\bin\Debug\netcoreapp2.0\Business.dll
+E:\HCDaiHoc\NMCNPMem\DoAnNMCNPM-FootballLeagueSchedure\FootBall-League-Schedule\Business\bin\Debug\netcoreapp2.0\Business.pdb
+E:\HCDaiHoc\NMCNPMem\DoAnNMCNPM-FootballLeagueSchedure\FootBall-League-Schedule\Business\obj\Debug\netcoreapp2.0\Business.csproj.CoreCompileInputs.cache
+E:\HCDaiHoc\NMCNPMem\DoAnNMCNPM-FootballLeagueSchedure\FootBall-League-Schedule\Business\obj\Debug\netcoreapp2.0\Business.AssemblyInfoInputs.cache
+E:\HCDaiHoc\NMCNPMem\DoAnNMCNPM-FootballLeagueSchedure\FootBall-League-Schedule\Business\obj\Debug\netcoreapp2.0\Business.AssemblyInfo.cs
+E:\HCDaiHoc\NMCNPMem\DoAnNMCNPM-FootballLeagueSchedure\FootBall-League-Schedule\Business\obj\Debug\netcoreapp2.0\Business.dll
+E:\HCDaiHoc\NMCNPMem\DoAnNMCNPM-FootballLeagueSchedure\FootBall-League-Schedule\Business\obj\Debug\netcoreapp2.0\Business.pdb
+E:\HCDaiHoc\NMCNPMem\DoAnNMCNPM-FootballLeagueSchedure\FootBall-League-Schedule\Business\obj\Debug\netcoreapp2.0\Business.csprojResolveAssemblyReference.cache
+E:\HCDaiHoc\NMCNPMem\DoAnNMCNPM-FootballLeagueSchedure\FootBall-League-Schedule\Business\bin\Debug\netcoreapp2.0\Model.dll
+E:\HCDaiHoc\NMCNPMem\DoAnNMCNPM-FootballLeagueSchedure\FootBall-League-Schedule\Business\bin\Debug\netcoreapp2.0\Repositories.dll
+E:\HCDaiHoc\NMCNPMem\DoAnNMCNPM-FootballLeagueSchedure\FootBall-League-Schedule\Business\bin\Debug\netcoreapp2.0\Repositories.pdb
+E:\HCDaiHoc\NMCNPMem\DoAnNMCNPM-FootballLeagueSchedure\FootBall-League-Schedule\Business\bin\Debug\netcoreapp2.0\Model.pdb

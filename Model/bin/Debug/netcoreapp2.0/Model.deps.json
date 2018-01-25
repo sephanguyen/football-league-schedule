@@ -1,0 +1,38 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v2.0",
+    "signature": "dcde15f622c2f9581eec8eca5c59b3d7cd73a639"
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v2.0": {
+      "Model/1.0.0": {
+        "dependencies": {
+          "MicroOrm.Pocos.SqlGenerator": "1.0.0.5"
+        },
+        "runtime": {
+          "Model.dll": {}
+        }
+      },
+      "MicroOrm.Pocos.SqlGenerator/1.0.0.5": {
+        "runtime": {
+          "lib/net45/MicroOrm.Pocos.SqlGenerator.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Model/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "MicroOrm.Pocos.SqlGenerator/1.0.0.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Vkv52cwr5dr7p7sB6/vkP0ElnnRrzEJknzY2nPkUAiFOzsiVev93uGpybvgIJ5alkR7zVR0iO/gicwYoO70cGg==",
+      "path": "microorm.pocos.sqlgenerator/1.0.0.5",
+      "hashPath": "microorm.pocos.sqlgenerator.1.0.0.5.nupkg.sha512"
+    }
+  }
+}
