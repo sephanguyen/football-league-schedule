@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Data.SqlClient;
+using ApiConfiguration;
 using Autofac;
-using Autofac.Extensions.DependencyInjection;
 using FootBallLeagueSchedule.DIConfig;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Repositories.ConnectionBase;
 
 namespace FootBallLeagueSchedule
 {
@@ -36,6 +35,7 @@ namespace FootBallLeagueSchedule
             {
                 swagger.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "Swagger For Backend" });
             });
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,8 +55,15 @@ namespace FootBallLeagueSchedule
         public void ConfigureContainer(ContainerBuilder builder)
         {
            
-            builder.RegisterModule(new AutofacModule());
-
+            builder.RegisterModule(new AutofacModuleService());
+            builder.RegisterType<DbContext>()
+                .As<IDbContext>().WithParameter(
+                        "connection",
+                        new SqlConnection(Configuration["AppSettings:StorageConnectionString"]))
+                .InstancePerLifetimeScope();
+            builder.RegisterType<ApiConfigurationManager>().As<IApiConfigurationManager>()
+                .WithParameter("env", Configuration["AppSettings:EnviromentKey"])
+                .SingleInstance();
         }
 
 

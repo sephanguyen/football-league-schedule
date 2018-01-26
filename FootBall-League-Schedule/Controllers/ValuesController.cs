@@ -2,28 +2,36 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ApiConfiguration;
+using ApiConfiguration.Env;
 using Business.interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Model.Model;
+using Model.ResponseModel.Player;
 
 namespace FootBallLeagueSchedule.Controllers
 {
     [Route("api/[controller]")]
-    public class ValuesController : Controller
+    public class ValuesController : BaseController
     {
         private readonly ITeamPlayerBusiness _teamPlayerBusiness;
 
-        public ValuesController(ITeamPlayerBusiness teamPlayerBusiness)
+
+        public ValuesController(ITeamPlayerBusiness teamPlayerBusiness, IApiConfigurationManager apiConfigurationManager) : base(apiConfigurationManager)
         {
-            if (teamPlayerBusiness == null)
-                throw new ArgumentException("teamPlayerBusiness is null");
-            _teamPlayerBusiness = teamPlayerBusiness;
+            _teamPlayerBusiness = teamPlayerBusiness ?? throw new ArgumentException("teamPlayerBusiness is null");
         }
         // GET api/values
         [HttpGet]
-        public async Task<IEnumerable<PlayerModel>> Get()
+        public async Task<PlayersResponseModel> Get()
         {
-            return await _teamPlayerBusiness.GetAllPlayerWithTeam();
+            var  result  = await _teamPlayerBusiness.GetAllPlayerWithTeam();
+            var responseResult = new PlayersResponseModel();
+            responseResult.Data = result;
+            responseResult.SetStatusCodeAndMessage(SystemSettings.StatusCode.OK,
+                                        ApiConfigurationManager.SystemSettings.DictionaryError[SystemSettings.StatusCode.OK]);
+
+            return responseResult;
         }
 
         // GET api/values/5
