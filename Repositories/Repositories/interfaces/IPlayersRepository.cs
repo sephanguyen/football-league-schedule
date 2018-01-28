@@ -1,10 +1,10 @@
 ﻿
 using MicroOrm.Dapper.Repositories;
-using Model.Model;
+using Repositories.Entities;
 
 namespace Repositories.Repositories.interfaces
 {
-    public interface IPlayersRepository : IDapperRepository<PlayerModel>
+    public interface IPlayersRepository : IDapperRepository<Player>
     {
         
     }

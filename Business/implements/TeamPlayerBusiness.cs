@@ -4,6 +4,7 @@ using Business.interfaces;
 using Model.Model;
 using Model.ResponseModel.Player;
 using Repositories.ConnectionBase;
+using Repositories.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -15,7 +16,7 @@ namespace Business.implements
         {
         }
 
-        public async Task<IEnumerable<PlayerModel>> GetAllPlayerWithTeam()
+        public async Task<IEnumerable<Player>> GetAllPlayerWithTeam()
         {
             
             return await DbContext.PlayerRepository.FindAllAsync();

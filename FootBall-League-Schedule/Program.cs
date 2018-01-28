@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-
+using NLog.Web;
 namespace FootBallLeagueSchedule
 {
     public class Program

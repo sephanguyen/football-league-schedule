@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ApiConfiguration;
 using ApiConfiguration.Env;
+using AutoMapper;
 using Business.interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Model.Model;
@@ -25,9 +26,9 @@ namespace FootBallLeagueSchedule.Controllers
         [HttpGet]
         public async Task<PlayersResponseModel> Get()
         {
-            var  result  = await _teamPlayerBusiness.GetAllPlayerWithTeam();
+            var result  = await _teamPlayerBusiness.GetAllPlayerWithTeam();
             var responseResult = new PlayersResponseModel();
-            responseResult.Data = result;
+            responseResult.Data = Mapper.Map<IEnumerable<PlayerModel>>(result);
             responseResult.SetStatusCodeAndMessage(SystemSettings.StatusCode.OK,
                                         ApiConfigurationManager.SystemSettings.DictionaryError[SystemSettings.StatusCode.OK]);
 
