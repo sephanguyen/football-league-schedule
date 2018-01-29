@@ -1,7 +1,5 @@
 ﻿using System.Data.SqlClient;
 using ApiConfiguration;
-using Autofac;
-using FootBallLeagueSchedule.DIConfig;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -14,6 +12,12 @@ using Repositories.ConnectionBase;
 using Repositories.Entities;
 using Microsoft.AspNetCore.Diagnostics;
 using NLog.Extensions.Logging;
+using Business.interfaces;
+using Business.implements;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Routing;
+using Business.Services;
 
 namespace FootBallLeagueSchedule
 {
@@ -39,6 +43,15 @@ namespace FootBallLeagueSchedule
                 setupAction.ReturnHttpNotAcceptable = true;
                 setupAction.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
             });
+            services.AddScoped<IDbContext>(dbcontext => new DbContext(new SqlConnection(Configuration["AppSettings:StorageConnectionString"])));
+            services.AddSingleton<IApiConfigurationManager>(apiconfig => new ApiConfigurationManager(Configuration["AppSettings:EnviromentKey"]));
+            services.AddTransient<ITeamPlayerBusiness, TeamPlayerBusiness>();
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+            services.AddScoped<IUrlHelper, UrlHelper>(implementationFactory => {
+                var actionContext = implementationFactory.GetService<IActionContextAccessor>().ActionContext;
+                return new UrlHelper(actionContext);
+            });
+            services.AddTransient<IPropertyMappingService, PropertyMappingService>();
             services.AddSwaggerGen(swagger =>
             {
                 swagger.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "Swagger For Backend" });
@@ -87,21 +100,6 @@ namespace FootBallLeagueSchedule
                     .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.NamePlayer));
             });
         }
-
-        public void ConfigureContainer(ContainerBuilder builder)
-        {
-           
-            builder.RegisterModule(new AutofacModuleService());
-            builder.RegisterType<DbContext>()
-                .As<IDbContext>().WithParameter(
-                        "connection",
-                        new SqlConnection(Configuration["AppSettings:StorageConnectionString"]))
-                .InstancePerLifetimeScope();
-            builder.RegisterType<ApiConfigurationManager>().As<IApiConfigurationManager>()
-                .WithParameter("env", Configuration["AppSettings:EnviromentKey"])
-                .SingleInstance();
-        }
-
 
     }
 }
