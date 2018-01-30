@@ -28,7 +28,8 @@ namespace FootBallLeagueSchedule.Controllers
                                 IApiConfigurationManager apiConfigurationManager,
                                 ILogger<BaseController> logger,
                                 IUrlHelper urlHelper,
-                                IPropertyMappingService propertyMappingService) : base(apiConfigurationManager, logger, urlHelper, propertyMappingService)
+                                IPropertyMappingService propertyMappingService,
+                                ITypeHelperService typeHelperService) : base(apiConfigurationManager, logger, urlHelper, propertyMappingService, typeHelperService)
         {
             _teamPlayerBusiness = teamPlayerBusiness ?? throw new ArgumentException("teamPlayerBusiness is null");
         }
@@ -40,16 +41,19 @@ namespace FootBallLeagueSchedule.Controllers
             {
                 return BadRequest();
             }
-            
-            var playersResult  = await _teamPlayerBusiness.GetAllPlayerWithTeam(playerPostParameters);
-            var previousPageLink = playersResult.HasPrevious ? CreatePlayerResourceUri(playerPostParameters, ResourceUriType.PreviousPage) : null;
-            var nextPageLink = playersResult.HasNext ? CreatePlayerResourceUri(playerPostParameters, ResourceUriType.NextPage) : null;
+            if(!TypeHelperService.TypeHasProperties<PlayerModel>(playerPostParameters.Fields))
+            {
+                return BadRequest();
+            }
+            var playersFromBus  = await _teamPlayerBusiness.GetAllPlayerWithTeam(playerPostParameters);
+            var previousPageLink = playersFromBus.HasPrevious ? CreatePlayerResourceUri(playerPostParameters, ResourceUriType.PreviousPage) : null;
+            var nextPageLink = playersFromBus.HasNext ? CreatePlayerResourceUri(playerPostParameters, ResourceUriType.NextPage) : null;
             var paginationMetadata = new
             {
-                totalCount = playersResult.Count,
-                pageSize = playersResult.PageSize,
-                currentPage = playersResult.CurrentPage,
-                totalPages = playersResult.TotalPages,
+                totalCount = playersFromBus.Count,
+                pageSize = playersFromBus.PageSize,
+                currentPage = playersFromBus.CurrentPage,
+                totalPages = playersFromBus.TotalPages,
                 previousPageLink = previousPageLink,
                 nextPageLink = nextPageLink
             };
@@ -57,7 +61,8 @@ namespace FootBallLeagueSchedule.Controllers
             Response.Headers.Add("X-Pagination",
                 Newtonsoft.Json.JsonConvert.SerializeObject(paginationMetadata));
 
-            return Ok(playersResult);
+            var players = Mapper.Map<IEnumerable<PlayerModel>>(playersFromBus);
+            return Ok(players.ShapeData(playerPostParameters.Fields));
         }
 
         // GET api/values/5
@@ -91,6 +96,7 @@ namespace FootBallLeagueSchedule.Controllers
                 case ResourceUriType.PreviousPage:
                     return UrlHelper.Link("GetPlayers", new
                     {
+                        fields = playerPostParametersModel.Fields,
                         orderBy = playerPostParametersModel.OrderBy,
                         searchQuery = playerPostParametersModel.SearchQuery,
                         pageNumber = playerPostParametersModel.PageNumber - 1,
@@ -99,6 +105,7 @@ namespace FootBallLeagueSchedule.Controllers
                 case ResourceUriType.NextPage:
                     return UrlHelper.Link("GetPlayers", new
                     {
+                        fields = playerPostParametersModel.Fields,
                         orderBy = playerPostParametersModel.OrderBy,
                         searchQuery = playerPostParametersModel.SearchQuery,
                         pageNumber = playerPostParametersModel.PageNumber + 1,
@@ -107,6 +114,7 @@ namespace FootBallLeagueSchedule.Controllers
                 default:
                     return UrlHelper.Link("GetPlayers", new
                     {
+                        fields = playerPostParametersModel.Fields,
                         orderBy = playerPostParametersModel.OrderBy,
                         searchQuery = playerPostParametersModel.SearchQuery,
                         pageNumber = playerPostParametersModel.PageNumber,

@@ -18,6 +18,8 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Business.Services;
+using FootBallLeagueSchedule.Helpers;
+using Newtonsoft.Json.Serialization;
 
 namespace FootBallLeagueSchedule
 {
@@ -42,7 +44,11 @@ namespace FootBallLeagueSchedule
             services.AddMvc(setupAction => {
                 setupAction.ReturnHttpNotAcceptable = true;
                 setupAction.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
+            })
+            .AddJsonOptions(options => {
+                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             });
+
             services.AddScoped<IDbContext>(dbcontext => new DbContext(new SqlConnection(Configuration["AppSettings:StorageConnectionString"])));
             services.AddSingleton<IApiConfigurationManager>(apiconfig => new ApiConfigurationManager(Configuration["AppSettings:EnviromentKey"]));
             services.AddTransient<ITeamPlayerBusiness, TeamPlayerBusiness>();
@@ -52,6 +58,7 @@ namespace FootBallLeagueSchedule
                 return new UrlHelper(actionContext);
             });
             services.AddTransient<IPropertyMappingService, PropertyMappingService>();
+            services.AddTransient<ITypeHelperService, TypeHelperService>();
             services.AddSwaggerGen(swagger =>
             {
                 swagger.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "Swagger For Backend" });
