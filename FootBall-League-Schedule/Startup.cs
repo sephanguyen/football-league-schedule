@@ -39,7 +39,7 @@ namespace FootBallLeagueSchedule
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {   
+        {
             // Add framework services.
             services.AddMvc(setupAction => {
                 setupAction.ReturnHttpNotAcceptable = true;
@@ -59,6 +59,17 @@ namespace FootBallLeagueSchedule
             });
             services.AddTransient<IPropertyMappingService, PropertyMappingService>();
             services.AddTransient<ITypeHelperService, TypeHelperService>();
+            services.AddHttpCacheHeaders(
+                (expirationModelOptions) => {
+                    expirationModelOptions.MaxAge = 600;
+                },
+                (validationModelOptions) =>
+                {
+                    validationModelOptions.AddMustRevalidate = true;
+                }
+            );
+
+            services.AddResponseCaching();
             services.AddSwaggerGen(swagger =>
             {
                 swagger.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "Swagger For Backend" });
@@ -94,13 +105,15 @@ namespace FootBallLeagueSchedule
                     });
                 });
             }
-
+            app.UseResponseCaching();
+            app.UseHttpCacheHeaders();
             app.UseMvc();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
+
             AutoMapper.Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<Player, PlayerModel>()
