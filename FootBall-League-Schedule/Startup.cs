@@ -49,7 +49,9 @@ namespace FootBallLeagueSchedule
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             });
 
-            services.AddScoped<IDbContext>(dbcontext => new DbContext(new SqlConnection(Configuration["AppSettings:StorageConnectionString"])));
+            //services.AddScoped<IDbContext>(dbcontext => new DbContext(new SqlConnection(Configuration["AppSettings:StorageConnectionString"])));
+            var databaseUse = DatabaseFactory.CreateDatabase(Configuration["AppSettings:ConcreteDatabaseName"], Configuration["AppSettings:StorageConnectionString"]);
+            services.AddScoped<IDbContext>(dbcontext => new DbContext(databaseUse.CreateConnection()));
             services.AddSingleton<IApiConfigurationManager>(apiconfig => new ApiConfigurationManager(Configuration["AppSettings:EnviromentKey"]));
             services.AddTransient<ITeamPlayerBusiness, TeamPlayerBusiness>();
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
