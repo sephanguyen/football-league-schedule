@@ -1,7 +1,6 @@
 ﻿
 using System.Data;
 using MicroOrm.Dapper.Repositories.SqlGenerator;
-using Model.Model;
 using Repositories.Entities;
 using Repositories.Repositories.interfaces;
 using System;

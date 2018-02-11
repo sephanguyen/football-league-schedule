@@ -1,6 +1,5 @@
 ﻿using MicroOrm.Dapper.Repositories;
 using MicroOrm.Dapper.Repositories.SqlGenerator;
-using System.Collections.Generic;
 using System.Data;
 
 namespace Repositories.Repositories.implements

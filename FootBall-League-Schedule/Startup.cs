@@ -118,8 +118,10 @@ namespace FootBallLeagueSchedule
 
             AutoMapper.Mapper.Initialize(cfg =>
             {
+                cfg.CreateMap<Team, TeamModel>();
                 cfg.CreateMap<Player, PlayerModel>()
-                    .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.NamePlayer));
+                    .ForMember(dest => dest.Name, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
+                    .ForMember(dest => dest.Age, opt => opt.MapFrom(src => src.DateOfBirth.GetCurrentAge()));
             });
         }
 
