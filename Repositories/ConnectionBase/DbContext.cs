@@ -2,17 +2,15 @@
 using MicroOrm.Dapper.Repositories.SqlGenerator;
 using Repositories.Repositories.implements;
 using Repositories.Repositories.interfaces;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Text;
 
 namespace Repositories.ConnectionBase
 {
     public class DbContext : DapperDbContext, IDbContext
     {
-        private IPlayersRepository _playersRepository;
+        private IPlayersRepository _playerRepository;
+        private ITeamsRepository _teamRepository;
         private SqlGeneratorConfig _config;
         public DbContext(IDbConnection connection) : base(connection)
         {
@@ -29,6 +27,8 @@ namespace Repositories.ConnectionBase
             }
         }
 
-        public IPlayersRepository PlayerRepository => _playersRepository ?? (_playersRepository = new PlayersRepository(Connection, _config));
+        public IPlayersRepository PlayerRepository => _playerRepository ?? (_playerRepository = new PlayersRepository(Connection, _config));
+
+        public ITeamsRepository TeamRepository => _teamRepository ?? (_teamRepository = new TeamsRepository(Connection, _config));
     }
 }

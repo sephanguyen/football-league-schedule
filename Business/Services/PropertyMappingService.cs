@@ -13,13 +13,23 @@ namespace Business.Services
             new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
             {
                 {"Id", new PropertyMappingValue(new List<string>() { "Id" }) },
-                {"Name", new PropertyMappingValue(new List<string>() { "NamePlayer" }) }
+                {"Age", new PropertyMappingValue(new List<string>() { "DateOfBirth" }) },
+                {"Name", new PropertyMappingValue(new List<string>() { "FirstName", "LastName" }) }
+            };
+
+        private Dictionary<string, PropertyMappingValue> _teamPropertyMapping =
+            new Dictionary<string, PropertyMappingValue>(StringComparer.OrdinalIgnoreCase)
+            {
+                {"Id", new PropertyMappingValue(new List<string>() { "Id" }) },
+                {"Name", new PropertyMappingValue(new List<string>() { "Name" }) },
+                {"City", new PropertyMappingValue(new List<string>() { "City" }) }
             };
 
         private IList<IPropertyMapping> _propertyMappings = new List<IPropertyMapping>();
         public PropertyMappingService()
         {
             _propertyMappings.Add(new PropertyMapping<PlayerModel, Player>(_playerPropertyMapping));
+            _propertyMappings.Add(new PropertyMapping<TeamModel, Team>(_teamPropertyMapping));
         }
         public Dictionary<string, PropertyMappingValue> GetPropertyMapping<TSource, TDestination>()
         {

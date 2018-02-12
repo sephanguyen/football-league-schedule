@@ -53,7 +53,8 @@ namespace FootBallLeagueSchedule
             var databaseUse = DatabaseFactory.CreateDatabase(Configuration["AppSettings:ConcreteDatabaseName"], Configuration["AppSettings:StorageConnectionString"]);
             services.AddScoped<IDbContext>(dbcontext => new DbContext(databaseUse.CreateConnection()));
             services.AddSingleton<IApiConfigurationManager>(apiconfig => new ApiConfigurationManager(Configuration["AppSettings:EnviromentKey"]));
-            services.AddTransient<ITeamPlayerBusiness, TeamPlayerBusiness>();
+            services.AddTransient<IFixtureBusiness, FixtureBusiness>();
+            services.AddTransient<IManagerTeamAndPlayerBusiness, ManagerTeamAndPlayerBusiness>();
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             services.AddScoped<IUrlHelper, UrlHelper>(implementationFactory => {
                 var actionContext = implementationFactory.GetService<IActionContextAccessor>().ActionContext;
@@ -107,8 +108,8 @@ namespace FootBallLeagueSchedule
                     });
                 });
             }
-            app.UseResponseCaching();
-            app.UseHttpCacheHeaders();
+            //app.UseResponseCaching();
+            //app.UseHttpCacheHeaders();
             app.UseMvc();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -119,11 +120,10 @@ namespace FootBallLeagueSchedule
             AutoMapper.Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<Team, TeamModel>()
-                    .ForMember(dest => dest.PlayersModel, opt => opt.MapFrom(src => src.Players));
+                    .ForMember(dest => dest.Players, opt => opt.MapFrom(src => src.Players));
                 cfg.CreateMap<Player, PlayerModel>()
                     .ForMember(dest => dest.Name, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
-                    .ForMember(dest => dest.Age, opt => opt.MapFrom(src => src.DateOfBirth.GetCurrentAge()))
-                    .ForMember(dest => dest.Team, opt => opt.MapFrom(src => src.Team));
+                    .ForMember(dest => dest.Age, opt => opt.MapFrom(src => src.DateOfBirth.GetCurrentAge()));
             });
         }
 

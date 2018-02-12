@@ -8,6 +8,8 @@ namespace Model.Model
         public string Name { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
-        public IEnumerable<PlayerModel> PlayersModel { get; set; }
+        public string StadiumName { get; set; }
+        public IEnumerable<PlayerModel> Players { get; set; }
+
     }
 }

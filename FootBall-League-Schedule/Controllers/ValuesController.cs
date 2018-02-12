@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using ApiConfiguration;
-using ApiConfiguration.Env;
-using ApiConfiguration.Utilities;
 using AutoMapper;
 using Business.interfaces;
 using Business.Services;
@@ -13,7 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Model.Model;
 using Model.PostParametersModels;
-using Model.ResponseModel.Player;
 using Repositories.Entities;
 
 namespace FootBallLeagueSchedule.Controllers
@@ -21,10 +17,10 @@ namespace FootBallLeagueSchedule.Controllers
     [Route("api/[controller]")]
     public class ValuesController : BaseController
     {
-        private readonly ITeamPlayerBusiness _teamPlayerBusiness;
+        private readonly IFixtureBusiness _teamPlayerBusiness;
 
 
-        public ValuesController(ITeamPlayerBusiness teamPlayerBusiness, 
+        public ValuesController(IFixtureBusiness teamPlayerBusiness, 
                                 IApiConfigurationManager apiConfigurationManager,
                                 ILogger<BaseController> logger,
                                 IUrlHelper urlHelper,
@@ -46,8 +42,8 @@ namespace FootBallLeagueSchedule.Controllers
                 return BadRequest();
             }
             var playersFromBus  = await _teamPlayerBusiness.GetAllPlayerWithTeam(playerPostParameters);
-            var previousPageLink = playersFromBus.HasPrevious ? CreatePlayerResourceUri(playerPostParameters, ResourceUriType.PreviousPage) : null;
-            var nextPageLink = playersFromBus.HasNext ? CreatePlayerResourceUri(playerPostParameters, ResourceUriType.NextPage) : null;
+            var previousPageLink = playersFromBus.HasPrevious ? CreatePlayerResourceUri("GetPlayers", playerPostParameters, ResourceUriType.PreviousPage) : null;
+            var nextPageLink = playersFromBus.HasNext ? CreatePlayerResourceUri("GetPlayers", playerPostParameters, ResourceUriType.NextPage) : null;
             var paginationMetadata = new
             {
                 totalCount = playersFromBus.Count,
@@ -90,38 +86,6 @@ namespace FootBallLeagueSchedule.Controllers
         {
         }
 
-        private string CreatePlayerResourceUri(PlayerPostParametersModel playerPostParametersModel, ResourceUriType type)
-        {
-            switch(type) {
-                case ResourceUriType.PreviousPage:
-                    return UrlHelper.Link("GetPlayers", new
-                    {
-                        fields = playerPostParametersModel.Fields,
-                        orderBy = playerPostParametersModel.OrderBy,
-                        searchQuery = playerPostParametersModel.SearchQuery,
-                        pageNumber = playerPostParametersModel.PageNumber - 1,
-                        pageSize = playerPostParametersModel.PageSize
-                    });
-                case ResourceUriType.NextPage:
-                    return UrlHelper.Link("GetPlayers", new
-                    {
-                        fields = playerPostParametersModel.Fields,
-                        orderBy = playerPostParametersModel.OrderBy,
-                        searchQuery = playerPostParametersModel.SearchQuery,
-                        pageNumber = playerPostParametersModel.PageNumber + 1,
-                        pageSize = playerPostParametersModel.PageSize
-                    });
-                default:
-                    return UrlHelper.Link("GetPlayers", new
-                    {
-                        fields = playerPostParametersModel.Fields,
-                        orderBy = playerPostParametersModel.OrderBy,
-                        searchQuery = playerPostParametersModel.SearchQuery,
-                        pageNumber = playerPostParametersModel.PageNumber,
-                        pageSize = playerPostParametersModel.PageSize
-                    });
-
-            }
-        }
+        
     }
 }

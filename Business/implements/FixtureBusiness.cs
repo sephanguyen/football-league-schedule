@@ -1,10 +1,7 @@
-﻿using ApiConfiguration;
-using ApiConfiguration.Env;
-using Business.interfaces;
+﻿using Business.interfaces;
 using Microsoft.Extensions.Logging;
 using Model.Model;
 using Model.PostParametersModels;
-using Model.ResponseModel.Player;
 using Repositories.ConnectionBase;
 using Repositories.Entities;
 using System.Collections.Generic;
@@ -16,9 +13,9 @@ using Business.Extension;
 
 namespace Business.implements
 {
-    public class TeamPlayerBusiness : BusinessBase, ITeamPlayerBusiness
+    public class FixtureBusiness : BusinessBase, IFixtureBusiness
     {
-        public TeamPlayerBusiness(IDbContext dbContext, ILogger<BusinessBase> logger,
+        public FixtureBusiness(IDbContext dbContext, ILogger<BusinessBase> logger,
                                   IPropertyMappingService propertyMappingService) : base(dbContext, logger, propertyMappingService)
         {
         }
@@ -30,7 +27,8 @@ namespace Business.implements
             {
                 var searchQueryForWhereClause = playerPostParameters.SearchQuery.Trim().ToLowerInvariant();
                 collectionBeforePaging = (await DbContext.PlayerRepository.FindAllAsync(
-                                        x => x.NamePlayer.ToLowerInvariant().Contains(searchQueryForWhereClause)
+                                        x => x.FirstName.ToLowerInvariant().Contains(searchQueryForWhereClause) ||
+                                            x.LastName.ToLowerInvariant().Contains(searchQueryForWhereClause)
                                         )).ToList();
             }
             else
