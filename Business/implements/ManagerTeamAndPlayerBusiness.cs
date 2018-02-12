@@ -23,19 +23,14 @@ namespace Business.implements
 
         public async Task<PagedList<Team>> GetTeams(TeamPostParameterModel teamPostParameterModel)
         {
-            IList<Team> collectionBeforePaging;
+            IList<Team> collectionBeforePaging = (await DbContext.TeamRepository.FindAllAsync<Player>(null,
+                                        x => x.Players)).ToList();
             if (!string.IsNullOrEmpty(teamPostParameterModel.SearchQuery))
             {
                 var searchQueryForWhereClause = teamPostParameterModel.SearchQuery.Trim().ToLowerInvariant();
-                collectionBeforePaging = (await DbContext.TeamRepository.FindAllAsync<Player>(
-                                        x => x.Name.ToLowerInvariant().Contains(searchQueryForWhereClause), 
-                                        y => y.Players)).ToList();
+                collectionBeforePaging = collectionBeforePaging.Where(x => x.Name.ToLowerInvariant().Contains(searchQueryForWhereClause)).ToList();
             }
-            else
-            {
-                collectionBeforePaging = (await DbContext.TeamRepository.FindAllAsync<Player>(null,
-                                        x => x.Players)).ToList();
-            }
+            
 
             collectionBeforePaging = collectionBeforePaging.ApplySort(teamPostParameterModel.OrderBy, PropertyMappingService.GetPropertyMapping<TeamModel, Team>());
 
