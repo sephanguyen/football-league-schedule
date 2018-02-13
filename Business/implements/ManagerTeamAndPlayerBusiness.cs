@@ -48,7 +48,23 @@ namespace Business.implements
 
         public async Task<bool> AddTeam(Team entity)
         {
-            return await DbContext.TeamRepository.InsertAsync(entity);
+            //await DbContext.TeamRepository.InsertAsync(entity);
+            var insertIsComplete = false;
+            using (var trans = DbContext.BeginTransaction())
+            {
+                var createTeamSuccess = await DbContext.TeamRepository.InsertAsync(entity, trans);
+                if(entity.Players.Any() && createTeamSuccess)
+                {
+                    var num = await DbContext.PlayerRepository.BulkInsertAsync(entity.Players,trans);
+                    if(num < 0)
+                    {
+                        trans.Rollback();
+                    }
+                }
+                trans.Commit();
+                insertIsComplete = true;
+            }
+            return insertIsComplete;
         }
     }
 }

@@ -24,7 +24,7 @@ namespace Repositories.Entities
         public string StadiumName { get; set; }
 
         [InnerJoin("Players", "id", "team_id")]
-        public virtual List<Player> Players { get; set; }
+        public virtual IEnumerable<Player> Players { get; set; }
 
         [Status]
         [Column("is_deleted")]
