@@ -30,7 +30,7 @@ namespace FootBallLeagueSchedule.Controllers
         }
 
         [HttpGet(Name = "GetTeams")]
-        public async Task<IActionResult> GetTeams(TeamPostParameterModel teamPostParameterModel)
+        public async Task<IActionResult> GetTeams(ListTeamPostParameterModel teamPostParameterModel)
         {
             if (!PropertyMappingService.ValidMappingExistsFor<TeamModel, Team>(teamPostParameterModel.OrderBy))
             {
@@ -59,7 +59,7 @@ namespace FootBallLeagueSchedule.Controllers
             var teams = Mapper.Map<IEnumerable<TeamModel>>(teamsFromBus);
             return Ok(teams.ShapeData(teamPostParameterModel.Fields));
         }
-        [HttpGet("{id}", Name = "GetAuthor")]
+        [HttpGet("{id}", Name = "GetTeam")]
         public async Task<IActionResult> GetTeam(int id, [FromQuery] string fields)
         {
             if (!TypeHelperService.TypeHasProperties<TeamModel>(fields))
@@ -75,6 +75,21 @@ namespace FootBallLeagueSchedule.Controllers
             return Ok(team.ShapData(fields));
         }
 
+        [HttpPost(Name = "CreateTeam")]
+        public async Task<IActionResult> CreateTeam([FromBody] TeamCreatePostParameterModel model)
+        {
+            if(model == null)
+            {
+                return BadRequest();
+            }
+            var teamEntity = Mapper.Map<Team>(model);
+            if(!(await _managerTeamAndPlayerBusiness.AddTeam(teamEntity)))
+            {
+                throw new Exception("Creating an team failed on save.");
+            }
+            var teamToReturn = Mapper.Map<TeamModel>(teamEntity);
+            return CreatedAtRoute("GetTeam", new { id = teamEntity.Id });
+        }
 
     }
 }

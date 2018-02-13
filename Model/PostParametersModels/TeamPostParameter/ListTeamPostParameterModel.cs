@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Model.PostParametersModels
 {
-    public class TeamPostParameterModel : BasePostParameterListModel
+    public class ListTeamPostParameterModel : BasePostParameterListModel
     {
-        public TeamPostParameterModel()
+        public ListTeamPostParameterModel()
         {
             OrderBy = "Name";
         }

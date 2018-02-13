@@ -21,7 +21,7 @@ namespace Business.implements
         {
         }
 
-        public async Task<PagedList<Team>> GetTeams(TeamPostParameterModel teamPostParameterModel)
+        public async Task<PagedList<Team>> GetTeams(ListTeamPostParameterModel teamPostParameterModel)
         {
             IList<Team> collectionBeforePaging = (await DbContext.TeamRepository.FindAllAsync<Player>(null,
                                         x => x.Players)).ToList();
@@ -44,6 +44,11 @@ namespace Business.implements
         public async Task<IEnumerable<Player>> GetPlayers()
         {
             return await DbContext.PlayerRepository.FindAllAsync<Team>(x => true, x => x.Team);
+        }
+
+        public async Task<bool> AddTeam(Team entity)
+        {
+            return await DbContext.TeamRepository.InsertAsync(entity);
         }
     }
 }
