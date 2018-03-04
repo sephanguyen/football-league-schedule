@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Mvc.Routing;
 using Business.Services;
 using FootBallLeagueSchedule.Helpers;
 using Newtonsoft.Json.Serialization;
+using Business.implement_fake_data;
 
 namespace FootBallLeagueSchedule
 {
@@ -53,8 +54,10 @@ namespace FootBallLeagueSchedule
             var databaseUse = DatabaseFactory.CreateDatabase(Configuration["AppSettings:ConcreteDatabaseName"], Configuration["AppSettings:StorageConnectionString"]);
             services.AddScoped<IDbContext>(dbcontext => new DbContext(databaseUse.CreateConnection()));
             services.AddSingleton<IApiConfigurationManager>(apiconfig => new ApiConfigurationManager(Configuration["AppSettings:EnviromentKey"]));
-            services.AddTransient<IFixtureBusiness, FixtureBusiness>();
-            services.AddTransient<IManagerTeamAndPlayerBusiness, ManagerTeamAndPlayerBusiness>();
+            //services.AddTransient<IFixtureBusiness, FixtureBusiness>();
+            services.AddTransient<IFixtureBusiness, FixtureBusinessFake>();
+            //services.AddTransient<IManagerTeamAndPlayerBusiness, ManagerTeamAndPlayerBusiness>();
+            services.AddTransient<IManagerTeamAndPlayerBusiness, ManagerTeamAndPlayerBusinessFake>();
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             services.AddScoped<IUrlHelper, UrlHelper>(implementationFactory => {
                 var actionContext = implementationFactory.GetService<IActionContextAccessor>().ActionContext;
@@ -123,7 +126,15 @@ namespace FootBallLeagueSchedule
                     .ForMember(dest => dest.Players, opt => opt.MapFrom(src => src.Players));
                 cfg.CreateMap<Player, PlayerModel>()
                     .ForMember(dest => dest.Name, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
+                    .ForMember(dest => dest.TeamName, opt => opt.MapFrom(src => src.Team.Name))
                     .ForMember(dest => dest.Age, opt => opt.MapFrom(src => src.DateOfBirth.GetCurrentAge()));
+                cfg.CreateMap<Match, MatchModel>()
+                    .ForMember(dest => dest.TotalScore, opt => opt.MapFrom(src => src.AwayScore + src.HomeScore))
+                    .ForMember(dest => dest.Match_Date, opt => opt.MapFrom(src => src.Match_Date.ToString("dd/MM/yyyy")))
+                    .ForMember(dest => dest.Match_Day, opt => opt.MapFrom(src => src.Match_Date.DayOfWeek.ToString()))
+                    .ForMember(dest => dest.Match_Time, opt => opt.MapFrom(src => src.Match_Date.ToString("HH:mm")))
+                    .ForMember(dest => dest.AwayTeamName, opt => opt.MapFrom(src => src.AwayTeam.Name))
+                    .ForMember(dest => dest.HomeTeamName, opt => opt.MapFrom(src => src.HomeTeam.Name));
             });
         }
 

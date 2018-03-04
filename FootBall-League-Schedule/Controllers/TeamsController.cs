@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Model.Model;
 using Model.PostParametersModels;
+using Model.PostParametersModels.TeamPostParameter;
 using Repositories.Entities;
 using System;
 using System.Collections.Generic;
@@ -74,6 +75,7 @@ namespace FootBallLeagueSchedule.Controllers
             var team = Mapper.Map<TeamModel>(teamFromRepo);
             return Ok(team.ShapData(fields));
         }
+
 
         [HttpPost(Name = "CreateTeam")]
         public async Task<IActionResult> CreateTeam([FromBody] TeamCreatePostParameterModel model)
