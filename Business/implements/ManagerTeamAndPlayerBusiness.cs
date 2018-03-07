@@ -66,5 +66,15 @@ namespace Business.implements
             }
             return insertIsComplete;
         }
+
+        public Task<IEnumerable<Player>> GetPlayersForTeam(int teamId)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<Player> GetPlayerForTeam(int teamId, int playerId)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

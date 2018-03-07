@@ -12,5 +12,7 @@ namespace Business.interfaces
         Task<Team> GetTeam(int teamId);
         Task<IEnumerable<Player>> GetPlayers();
         Task<bool> AddTeam(Team entity);
+        Task<IEnumerable<Player>> GetPlayersForTeam(int teamId);
+        Task<Player> GetPlayerForTeam(int teamId, int playerId);
     }
 }

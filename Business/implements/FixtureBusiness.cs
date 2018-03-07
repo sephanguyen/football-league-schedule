@@ -10,6 +10,7 @@ using System.Linq;
 using ApiConfiguration.Utilities;
 using Business.Services;
 using Business.Extension;
+using Model.MatchPostParameter.PostParametersModels;
 
 namespace Business.implements
 {
@@ -41,6 +42,9 @@ namespace Business.implements
             return PagedList<Player>.Create(collectionBeforePaging, playerPostParameters.PageNumber, playerPostParameters.PageSize);
         }
 
-      
+        public Task<IEnumerable<Match>> GetListFixture(ListFixturePostParametersModel matchPostParameters)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

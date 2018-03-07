@@ -16,6 +16,7 @@ namespace Model.Model
         public DateTime? ContractEndDate { get; set; }
         public string Image { get; set; }
         public int TeamId { get; set; }
+        public string TeamName { get; set; }
 
 
     }
