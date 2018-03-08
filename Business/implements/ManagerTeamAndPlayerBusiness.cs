@@ -55,6 +55,7 @@ namespace Business.implements
                 var createTeamSuccess = await DbContext.TeamRepository.InsertAsync(entity, trans);
                 if(entity.Players.Any() && createTeamSuccess)
                 {
+                    entity.Players.Select(c => { c.TeamId = entity.Id; return c; }).ToList();
                     var num = await DbContext.PlayerRepository.BulkInsertAsync(entity.Players,trans);
                     if(num < 0)
                     {

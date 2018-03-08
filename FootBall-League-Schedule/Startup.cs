@@ -21,6 +21,8 @@ using Business.Services;
 using FootBallLeagueSchedule.Helpers;
 using Newtonsoft.Json.Serialization;
 using Business.implement_fake_data;
+using Model.PostParametersModels.TeamPostParameter;
+using Repositories.Enum;
 
 namespace FootBallLeagueSchedule
 {
@@ -54,10 +56,10 @@ namespace FootBallLeagueSchedule
             var databaseUse = DatabaseFactory.CreateDatabase(Configuration["AppSettings:ConcreteDatabaseName"], Configuration["AppSettings:StorageConnectionString"]);
             services.AddScoped<IDbContext>(dbcontext => new DbContext(databaseUse.CreateConnection()));
             services.AddSingleton<IApiConfigurationManager>(apiconfig => new ApiConfigurationManager(Configuration["AppSettings:EnviromentKey"]));
-            //services.AddTransient<IFixtureBusiness, FixtureBusiness>();
-            services.AddTransient<IFixtureBusiness, FixtureBusinessFake>();
-            //services.AddTransient<IManagerTeamAndPlayerBusiness, ManagerTeamAndPlayerBusiness>();
-            services.AddTransient<IManagerTeamAndPlayerBusiness, ManagerTeamAndPlayerBusinessFake>();
+            services.AddTransient<IFixtureBusiness, FixtureBusiness>();
+            //services.AddTransient<IFixtureBusiness, FixtureBusinessFake>();
+            services.AddTransient<IManagerTeamAndPlayerBusiness, ManagerTeamAndPlayerBusiness>();
+            //services.AddTransient<IManagerTeamAndPlayerBusiness, ManagerTeamAndPlayerBusinessFake>();
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             services.AddScoped<IUrlHelper, UrlHelper>(implementationFactory => {
                 var actionContext = implementationFactory.GetService<IActionContextAccessor>().ActionContext;
@@ -135,6 +137,11 @@ namespace FootBallLeagueSchedule
                     .ForMember(dest => dest.Match_Time, opt => opt.MapFrom(src => src.Match_Date.ToString("HH:mm")))
                     .ForMember(dest => dest.AwayTeamName, opt => opt.MapFrom(src => src.AwayTeam.Name))
                     .ForMember(dest => dest.HomeTeamName, opt => opt.MapFrom(src => src.HomeTeam.Name));
+                cfg.CreateMap<PlayerCreatePostParameterModel, Player>()
+                   .ForMember(dest => dest.Deleted, opt => opt.MapFrom(src => StatusDelete.Active));
+                cfg.CreateMap<TeamCreatePostParameterModel, Team>()
+                    .ForMember(dest => dest.Deleted, opt => opt.MapFrom(src => StatusDelete.Active))
+                    .ForMember(dest => dest.Players, opt => opt.MapFrom(src => src.Players));
             });
         }
 

@@ -6,7 +6,8 @@ namespace Model.PostParametersModels.TeamPostParameter
 {
     public class PlayerCreatePostParameterModel
     {
-        public string Name { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public string Nationality { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public DateTime? ContractStartDate { get; set; }

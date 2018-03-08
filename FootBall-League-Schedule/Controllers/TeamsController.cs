@@ -90,7 +90,7 @@ namespace FootBallLeagueSchedule.Controllers
                 throw new Exception("Creating an team failed on save.");
             }
             var teamToReturn = Mapper.Map<TeamModel>(teamEntity);
-            return CreatedAtRoute("GetTeam", new { id = teamEntity.Id });
+            return CreatedAtRoute("GetTeam", new { id = teamEntity.Id }, teamToReturn);
         }
 
     }
