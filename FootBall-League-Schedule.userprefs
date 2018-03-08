@@ -1,0 +1,13 @@
+﻿<Properties StartupConfiguration="{25F767E6-AEB6-488E-B20A-90111D9AE336}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="FootBall-League-Schedule/Startup.cs">
+    <Files>
+      <File FileName="FootBall-League-Schedule/Startup.cs" Line="169" Column="6" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+</Properties>

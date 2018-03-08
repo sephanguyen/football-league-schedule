@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repositories", "Repositorie
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Model\Model.csproj", "{3D97E60E-B06A-4398-A21E-411EF3272E5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiConfiguration", "ApiConfiguration\ApiConfiguration.csproj", "{FDF2F6F6-939B-4728-A1B2-101220161980}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiConfiguration", "ApiConfiguration\ApiConfiguration.csproj", "{FDF2F6F6-939B-4728-A1B2-101220161980}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Football-League-Schedule.Test", "Football-League-Schedule.Test\Football-League-Schedule.Test.csproj", "{38F06670-416D-4BE3-8DCE-84813A2344FA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{FDF2F6F6-939B-4728-A1B2-101220161980}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDF2F6F6-939B-4728-A1B2-101220161980}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDF2F6F6-939B-4728-A1B2-101220161980}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38F06670-416D-4BE3-8DCE-84813A2344FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38F06670-416D-4BE3-8DCE-84813A2344FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38F06670-416D-4BE3-8DCE-84813A2344FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38F06670-416D-4BE3-8DCE-84813A2344FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
