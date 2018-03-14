@@ -24,6 +24,7 @@ using Business.implement_fake_data;
 using Model.PostParametersModels.TeamPostParameter;
 using Repositories.Enum;
 using System.Threading.Tasks;
+using Business.Extension;
 
 namespace FootBallLeagueSchedule
 {
@@ -60,6 +61,7 @@ namespace FootBallLeagueSchedule
             services.AddTransient<IFixtureBusiness, FixtureBusiness>();
             //services.AddTransient<IFixtureBusiness, FixtureBusinessFake>();
             services.AddTransient<IManagerTeamAndPlayerBusiness, ManagerTeamAndPlayerBusiness>();
+            services.AddTransient<IGeneraterFixture, GeneraterRoundRobin>();
             //services.AddTransient<IManagerTeamAndPlayerBusiness, ManagerTeamAndPlayerBusinessFake>();
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             services.AddScoped<IUrlHelper, UrlHelper>(implementationFactory => {
@@ -134,9 +136,9 @@ namespace FootBallLeagueSchedule
                     .ForMember(dest => dest.Age, opt => opt.MapFrom(src => src.DateOfBirth.GetCurrentAge()));
                 cfg.CreateMap<Match, MatchModel>()
                     .ForMember(dest => dest.TotalScore, opt => opt.MapFrom(src => src.AwayScore + src.HomeScore))
-                    .ForMember(dest => dest.Match_Date, opt => opt.MapFrom(src => src.Match_Date.ToString("dd/MM/yyyy")))
-                    .ForMember(dest => dest.Match_Day, opt => opt.MapFrom(src => src.Match_Date.DayOfWeek.ToString()))
-                    .ForMember(dest => dest.Match_Time, opt => opt.MapFrom(src => src.Match_Date.ToString("HH:mm")))
+                    .ForMember(dest => dest.MatchDate, opt => opt.MapFrom(src => src.MatchDate.ToString("dd/MM/yyyy")))
+                    .ForMember(dest => dest.MatchDay, opt => opt.MapFrom(src => src.MatchDate.DayOfWeek.ToString()))
+                    .ForMember(dest => dest.MatchTime, opt => opt.MapFrom(src => src.MatchDate.ToString("HH:mm")))
                     .ForMember(dest => dest.AwayTeamName, opt => opt.MapFrom(src => src.AwayTeam.Name))
                     .ForMember(dest => dest.HomeTeamName, opt => opt.MapFrom(src => src.HomeTeam.Name));
                 cfg.CreateMap<PlayerCreatePostParameterModel, Player>()

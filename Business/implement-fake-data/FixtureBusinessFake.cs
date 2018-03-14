@@ -12,6 +12,11 @@ namespace Business.implement_fake_data
 {
     public class FixtureBusinessFake : IFixtureBusiness
     {
+        public Task<IEnumerable<Match>> GenerateFixture()
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<PagedList<Player>> GetAllPlayerWithTeam(PlayerPostParametersModel playerPostParameters)
         {
             throw new System.NotImplementedException();
@@ -38,7 +43,7 @@ namespace Business.implement_fake_data
                         Name = "Barcelona"
                     },
                     HomeTeamId = 2,
-                    Match_Date = DateTime.Now,
+                    MatchDate = DateTime.Now,
                     Stadium = "NouCamp"
                 }
             };

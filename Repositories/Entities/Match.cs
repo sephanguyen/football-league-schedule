@@ -20,7 +20,9 @@ namespace Repositories.Entities
         public short HomeScore { get; set; }
 
         [Column("match_date")]
-        public DateTime Match_Date { get; set; }
+        public DateTime MatchDate { get; set; }
+        [Column("round")]
+        public int Round { get; set; }
 
         [Column("stadium")] 
         public string Stadium { get; set; }

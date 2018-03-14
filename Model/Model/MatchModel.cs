@@ -10,9 +10,10 @@ namespace Model.Model
         public short AwayScore { get; set; }
         public short HomeScore { get; set; }
         public short TotalScore { get; set; }
-        public string Match_Date { get; set; }
-        public string Match_Time { get; set; }
-        public string Match_Day { get; set; }
+        public string MatchDate { get; set; }
+        public string MatchTime { get; set; }
+        public string MatchDay { get; set; }
+        public short Round { get; set; }
         public string Stadium { get; set; }
         public int AwayTeamId { get; set; }
         public string AwayTeamName { get; set; }

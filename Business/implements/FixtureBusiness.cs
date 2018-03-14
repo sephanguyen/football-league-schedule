@@ -11,14 +11,31 @@ using ApiConfiguration.Utilities;
 using Business.Services;
 using Business.Extension;
 using Model.MatchPostParameter.PostParametersModels;
+using System;
+using Repositories.Enum;
 
 namespace Business.implements
 {
     public class FixtureBusiness : BusinessBase, IFixtureBusiness
     {
-        public FixtureBusiness(IDbContext dbContext, ILogger<BusinessBase> logger,
-                                  IPropertyMappingService propertyMappingService) : base(dbContext, logger, propertyMappingService)
+        private readonly IGeneraterFixture _generaterFixture;
+        public FixtureBusiness(IDbContext dbContext,
+                                ILogger<BusinessBase> logger,
+                                IGeneraterFixture generaterFixture,
+                                IPropertyMappingService propertyMappingService) : base(dbContext, logger, propertyMappingService)
         {
+            _generaterFixture = generaterFixture ?? throw new ArgumentException("generaterFixture is null");
+        }
+
+        public async Task<IEnumerable<Match>> GenerateFixture()
+        {
+            var listTeam = await (DbContext.TeamRepository.FindAllAsync(x => x.Deleted != StatusDelete.Deleted));
+            IList<Match> listmatch = _generaterFixture.RandomMatchs(listTeam.ToList());
+            using (var trans = DbContext.BeginTransaction())
+            {
+               
+            };
+            return listmatch;
         }
 
         public async Task<PagedList<Player>> GetAllPlayerWithTeam(PlayerPostParametersModel playerPostParameters)
