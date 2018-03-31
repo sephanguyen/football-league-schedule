@@ -129,6 +129,14 @@ namespace Business.implement_fake_data
             throw new System.NotImplementedException();
         }
 
+        public Task<bool> UpdatePlayer(Player entity)
+        {
+            throw new NotImplementedException();
+        }
 
+        public Task<bool> UpdateTeam(Team entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
