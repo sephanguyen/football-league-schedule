@@ -1,5 +1,6 @@
 ﻿
 
+using Repositories.Enum;
 using System;
 
 namespace Model.Model
