@@ -11,30 +11,33 @@ namespace Repositories.Entities
     public class Match
     {
         [Key, Identity]
-        [Column("id")]
+        [Column("Id")]
         public long Id { get; set; }
 
-        [Column("away_score")]
-        public short AwayScore { get; set; }
-        [Column("home_score")]
-        public short HomeScore { get; set; }
+        [Column("ScoreHome")]
+        public short ScoreHome { get; set; }
+        [Column("ScoreAway")]
+        public short ScoreAway { get; set; }
 
-        [Column("match_date")]
+        [Column("MatchDate")]
         public DateTime MatchDate { get; set; }
-        [Column("round")]
+        [Column("Round")]
         public int Round { get; set; }
 
-        [Column("stadium")] 
-        public string Stadium { get; set; }
 
-        [Column("away_team_id")]
-        public int AwayTeamId { get; set; }
-        [InnerJoin("Teams", "away_team_id", "id")]
-        public virtual Team AwayTeam { get; set; }
+        [Column("TeamAwayId")]
+        public int TeamAwayId { get; set; }
+        [InnerJoin("Teams", "TeamAwayId", "Id")]
+        public virtual Team TeamAway { get; set; }
 
-        [Column("home_team_id")]
-        public int HomeTeamId { get; set; }
-        [InnerJoin("Teams", "home_team_id", "id")]
-        public virtual Team HomeTeam { get; set; }
+        [Column("TeamHomeId")]
+        public int TeamHomeId { get; set; }
+        [InnerJoin("Teams", "TeamHomeId", "Id")]
+        public virtual Team TeamHome { get; set; }
+
+        [Column("SeasonId")]
+        public int SeasonId { get; set; }
+        [InnerJoin("Seasons", "SeasonId", "Id")]
+        public virtual Season Season { get; set; }
     }
 }

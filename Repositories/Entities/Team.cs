@@ -12,22 +12,22 @@ namespace Repositories.Entities
     public class Team
     {
         [Key, Identity]
-        [Column("id")]
+        [Column("Id")]
         public int Id { get; set; }
-        [Column("city")]
-        public string City { get; set; }
-        [Column("address")]
-        public string Address { get; set; }
-        [Column("name")]
+
+        [Column("Name")]
         public string Name { get; set; }
-        [Column("stadium_name")]
+        [Column("StadiumName")]
         public string StadiumName { get; set; }
 
-        [InnerJoin("Players", "id", "team_id")]
+        [Column("Logo")]
+        public string Logo { get; set; }
+
+        [InnerJoin("Players", "Id", "TeamId")]
         public virtual IEnumerable<Player> Players { get; set; }
 
         [Status]
-        [Column("is_deleted")]
+        [Column("Deleted")]
         public StatusDelete Deleted { get; set; }
     }
 }
