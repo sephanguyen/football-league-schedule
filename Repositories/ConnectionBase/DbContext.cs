@@ -1,5 +1,6 @@
 ﻿using MicroOrm.Dapper.Repositories.DbContext;
 using MicroOrm.Dapper.Repositories.SqlGenerator;
+using MySql.Data.MySqlClient;
 using Repositories.Repositories.implements;
 using Repositories.Repositories.interfaces;
 using System.Data;
@@ -21,6 +22,14 @@ namespace Repositories.ConnectionBase
                     _config = new SqlGeneratorConfig
                     {
                         SqlConnector = ESqlConnector.MSSQL,
+                        UseQuotationMarks = true
+                    };
+                }
+                if (connection is MySqlConnection)
+                {
+                    _config = new SqlGeneratorConfig
+                    {
+                        SqlConnector = ESqlConnector.MySQL,
                         UseQuotationMarks = true
                     };
                 }

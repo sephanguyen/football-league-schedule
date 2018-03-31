@@ -10,9 +10,10 @@ namespace Business.interfaces
     {
         Task<PagedList<Team>> GetTeams(ListTeamPostParameterModel teamPostParameterModel);
         Task<Team> GetTeam(int teamId);
-        Task<IEnumerable<Player>> GetPlayers();
         Task<bool> AddTeam(Team entity);
+        Task<bool> UpdateTeam(Team entity);
         Task<IEnumerable<Player>> GetPlayersForTeam(int teamId);
         Task<Player> GetPlayerForTeam(int teamId, int playerId);
+        Task<bool> UpdatePlayer(Player entity);
     }
 }

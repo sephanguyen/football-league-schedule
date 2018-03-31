@@ -21,6 +21,7 @@ namespace Business.implements
         {
         }
 
+        #region Business For Team
         public async Task<PagedList<Team>> GetTeams(ListTeamPostParameterModel teamPostParameterModel)
         {
             IList<Team> collectionBeforePaging = (await DbContext.TeamRepository.FindAllAsync<Player>(null,
@@ -41,10 +42,6 @@ namespace Business.implements
         {
             return await DbContext.TeamRepository.FindByIdAsync<Player>(teamId, x => x.Players);
         }
-        public async Task<IEnumerable<Player>> GetPlayers()
-        {
-            return await DbContext.PlayerRepository.FindAllAsync<Team>(x => true, x => x.Team);
-        }
 
         public async Task<bool> AddTeam(Team entity)
         {
@@ -53,11 +50,11 @@ namespace Business.implements
             using (var trans = DbContext.BeginTransaction())
             {
                 var createTeamSuccess = await DbContext.TeamRepository.InsertAsync(entity, trans);
-                if(entity.Players.Any() && createTeamSuccess)
+                if (entity.Players.Any() && createTeamSuccess)
                 {
                     entity.Players.Select(c => { c.TeamId = entity.Id; return c; }).ToList();
-                    var num = await DbContext.PlayerRepository.BulkInsertAsync(entity.Players,trans);
-                    if(num < 0)
+                    var num = await DbContext.PlayerRepository.BulkInsertAsync(entity.Players, trans);
+                    if (num < 0)
                     {
                         trans.Rollback();
                     }
@@ -67,15 +64,48 @@ namespace Business.implements
             }
             return insertIsComplete;
         }
-
-        public Task<IEnumerable<Player>> GetPlayersForTeam(int teamId)
+        public async Task<bool> UpdateTeam(Team entity)
         {
-            throw new System.NotImplementedException();
+            var updateIsComplete = false;
+            using (var trans = DbContext.BeginTransaction())
+            {
+                var updateTeamSuccess = await DbContext.TeamRepository.UpdateAsync(entity, trans);
+                if (updateTeamSuccess)
+                {
+                    //var listPlayerUpdate = entity.Players.Select(p => p.Id);
+                    //var listPlayerInsert;
+
+                    //entity.Players.Select(c => { c.TeamId = entity.Id; return c; }).ToList();
+                    //var num = await DbContext.PlayerRepository.BulkInsertAsync(entity.Players, trans);
+                    //if (num < 0)
+                    //{
+                    //    trans.Rollback();
+                    //}
+                }
+                trans.Commit();
+                updateIsComplete = true;
+            }
+            return updateIsComplete;
+        }
+        #endregion
+
+        #region Business For Player
+
+        public async Task<IEnumerable<Player>> GetPlayersForTeam(int teamId)
+        {
+            return await DbContext.PlayerRepository.FindAllAsync<Team>(x => x.TeamId == teamId, x => x.Team);
         }
 
-        public Task<Player> GetPlayerForTeam(int teamId, int playerId)
+        public async Task<Player> GetPlayerForTeam(int teamId, int playerId)
         {
-            throw new System.NotImplementedException();
+            return await DbContext.PlayerRepository.FindAsync<Team>(x => x.TeamId == teamId && x.Id == playerId, x => x.Team);
         }
+
+         public async Task<bool> UpdatePlayer(Player entity)
+         {
+            return await DbContext.PlayerRepository.UpdateAsync(entity);
+         }
+
+        #endregion
     }
 }

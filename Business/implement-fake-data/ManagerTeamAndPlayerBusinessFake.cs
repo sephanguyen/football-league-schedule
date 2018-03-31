@@ -42,11 +42,6 @@ namespace Business.implement_fake_data
             };
         }
 
-        public Task<IEnumerable<Player>> GetPlayers()
-        {
-            throw new System.NotImplementedException();
-        }
-
         public async Task<IEnumerable<Player>> GetPlayersForTeam(int teamId)
         {
             return new List<Player>()

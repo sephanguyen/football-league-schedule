@@ -12,6 +12,7 @@ namespace Model.PostParametersModels.TeamPostParameter
         public DateTime? DateOfBirth { get; set; }
         public DateTime? ContractStartDate { get; set; }
         public DateTime? ContractEndDate { get; set; }
+        public bool IsForeign { get; set; }
         public string Image { get; set; }
     }
 }
