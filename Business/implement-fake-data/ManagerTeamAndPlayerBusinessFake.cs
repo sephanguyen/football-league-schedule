@@ -21,73 +21,78 @@ namespace Business.implement_fake_data
         {
             return new Player()
             {
-                Id = 1,
-                FirstName = "Leona",
-                LastName = "Messi",
-                ContractEndDate = DateTime.Now,
-                ContractStartDate = DateTime.Now,
-                DateOfBirth = DateTime.Now,
-                Deleted = StatusDelete.Active,
-                Nationality = "Aghentina",
-                TeamId = 1,
-                Team = new Team()
-                {
-                    Id = 1,
-                    Address = "Catalan",
-                    City = "Catalan",
-                    Deleted = StatusDelete.Active,
-                    Name = "Barcelona",
-                    StadiumName = "Nou Camp"
-                }
+                // Id = 1,
+                // FirstName = "Leona",
+                // LastName = "Messi",
+                // ContractEndDate = DateTime.Now,
+                // ContractStartDate = DateTime.Now,
+                // DateOfBirth = DateTime.Now,
+                // Deleted = StatusDelete.Active,
+                // Nationality = "Aghentina",
+                // TeamId = 1,
+                // Team = new Team()
+                // {
+                //     Id = 1,
+                //     Address = "Catalan",
+                //     City = "Catalan",
+                //     Deleted = StatusDelete.Active,
+                //     Name = "Barcelona",
+                //     StadiumName = "Nou Camp"
+                // }
             };
+        }
+
+        public Task<IEnumerable<Player>> GetPlayers()
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<IEnumerable<Player>> GetPlayersForTeam(int teamId)
         {
             return new List<Player>()
             {
-                new Player()
-                {
-                    Id = 1,
-                    FirstName = "Leona",
-                    LastName = "Messi",
-                    ContractEndDate = DateTime.Now,
-                    ContractStartDate = DateTime.Now,
-                    DateOfBirth = DateTime.Now,
-                    Deleted = StatusDelete.Active,
-                    Nationality = "Aghentina",
-                    TeamId = 1,
-                    Team = new Team()
-                    {
-                        Id = 1,
-                        Address = "Catalan",
-                        City = "Catalan",
-                        Deleted = StatusDelete.Active,
-                        Name = "Barcelona",
-                        StadiumName = "Nou Camp"
-                    }
-                },
-                new Player()
-                {
-                    Id = 1,
-                    FirstName = "Iniesta",
-                    LastName = "Messi",
-                    ContractEndDate = DateTime.Now,
-                    ContractStartDate = DateTime.Now,
-                    DateOfBirth = DateTime.Now,
-                    Deleted = StatusDelete.Active,
-                    Nationality = "Spain",
-                    TeamId = 1,
-                    Team = new Team()
-                    {
-                        Id = 1,
-                        Address = "Catalan",
-                        City = "Catalan",
-                        Deleted = StatusDelete.Active,
-                        Name = "Barcelona",
-                        StadiumName = "Nou Camp"
-                    }
-                }
+                // new Player()
+                // {
+                //     Id = 1,
+                //     FirstName = "Leona",
+                //     LastName = "Messi",
+                //     ContractEndDate = DateTime.Now,
+                //     ContractStartDate = DateTime.Now,
+                //     DateOfBirth = DateTime.Now,
+                //     Deleted = StatusDelete.Active,
+                //     Nationality = "Aghentina",
+                //     TeamId = 1,
+                //     Team = new Team()
+                //     {
+                //         Id = 1,
+                //         Address = "Catalan",
+                //         City = "Catalan",
+                //         Deleted = StatusDelete.Active,
+                //         Name = "Barcelona",
+                //         StadiumName = "Nou Camp"
+                //     }
+                // },
+                // new Player()
+                // {
+                //     Id = 1,
+                //     FirstName = "Iniesta",
+                //     LastName = "Messi",
+                //     ContractEndDate = DateTime.Now,
+                //     ContractStartDate = DateTime.Now,
+                //     DateOfBirth = DateTime.Now,
+                //     Deleted = StatusDelete.Active,
+                //     Nationality = "Spain",
+                //     TeamId = 1,
+                //     Team = new Team()
+                //     {
+                //         Id = 1,
+                //         Address = "Catalan",
+                //         City = "Catalan",
+                //         Deleted = StatusDelete.Active,
+                //         Name = "Barcelona",
+                //         StadiumName = "Nou Camp"
+                //     }
+                // }
             };
         }
 
@@ -95,27 +100,27 @@ namespace Business.implement_fake_data
         {
             return new Team
             {
-                Id = 1,
-                Address = "Catalan",
-                City = "Catalan",
-                Deleted = StatusDelete.Active,
-                Name = "Barcelona",
-                StadiumName = "Nou Camp",
-                Players = new List<Player>()
-                {
-                    new Player()
-                    {
-                        Id = 1,
-                        FirstName = "Leona",
-                        LastName = "Messi",
-                        ContractEndDate = DateTime.Now,
-                        ContractStartDate = DateTime.Now,
-                        DateOfBirth = DateTime.Now,
-                        Deleted = StatusDelete.Active,
-                        Nationality = "Aghentina",
-                        TeamId = 1
-                    }
-                }
+                // Id = 1,
+                // Address = "Catalan",
+                // City = "Catalan",
+                // Deleted = StatusDelete.Active,
+                // Name = "Barcelona",
+                // StadiumName = "Nou Camp",
+                // Players = new List<Player>()
+                // {
+                //     new Player()
+                //     {
+                //         Id = 1,
+                //         FirstName = "Leona",
+                //         LastName = "Messi",
+                //         ContractEndDate = DateTime.Now,
+                //         ContractStartDate = DateTime.Now,
+                //         DateOfBirth = DateTime.Now,
+                //         Deleted = StatusDelete.Active,
+                //         Nationality = "Aghentina",
+                //         TeamId = 1
+                //     }
+                // }
             };
         }
 

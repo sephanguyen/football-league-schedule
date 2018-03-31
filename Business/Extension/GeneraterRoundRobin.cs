@@ -32,10 +32,10 @@ namespace Business.Extension
                     secondTeam = listTeam[(round + teamsSize - idx) % teamsSize];
                     match = new Match()
                     {
-                        HomeTeamId = firstTeam.Id,
-                        AwayTeamId = secondTeam.Id,
+                        TeamHomeId = firstTeam.Id,
+                        TeamAwayId = secondTeam.Id,
                         Round = ++round,
-                        Stadium = firstTeam.StadiumName
+                        StadiumName = firstTeam.StadiumName
                     };
                     listMatch.Add(match);
                 }

@@ -39,5 +39,8 @@ namespace Repositories.Entities
         public int SeasonId { get; set; }
         [InnerJoin("Seasons", "SeasonId", "Id")]
         public virtual Season Season { get; set; }
+
+        [Column("StadiumName")]
+        public string StadiumName { get; set; }
     }
 }

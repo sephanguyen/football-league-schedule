@@ -135,12 +135,11 @@ namespace FootBallLeagueSchedule
                     .ForMember(dest => dest.TeamName, opt => opt.MapFrom(src => src.Team.Name))
                     .ForMember(dest => dest.Age, opt => opt.MapFrom(src => src.DateOfBirth.GetCurrentAge()));
                 cfg.CreateMap<Match, MatchModel>()
-                    .ForMember(dest => dest.TotalScore, opt => opt.MapFrom(src => src.AwayScore + src.HomeScore))
                     .ForMember(dest => dest.MatchDate, opt => opt.MapFrom(src => src.MatchDate.ToString("dd/MM/yyyy")))
                     .ForMember(dest => dest.MatchDay, opt => opt.MapFrom(src => src.MatchDate.DayOfWeek.ToString()))
                     .ForMember(dest => dest.MatchTime, opt => opt.MapFrom(src => src.MatchDate.ToString("HH:mm")))
-                    .ForMember(dest => dest.AwayTeamName, opt => opt.MapFrom(src => src.AwayTeam.Name))
-                    .ForMember(dest => dest.HomeTeamName, opt => opt.MapFrom(src => src.HomeTeam.Name));
+                    .ForMember(dest => dest.TeamAwayName, opt => opt.MapFrom(src => src.TeamAway.Name))
+                    .ForMember(dest => dest.TeamHomeName, opt => opt.MapFrom(src => src.TeamHome.Name));
                 cfg.CreateMap<PlayerCreatePostParameterModel, Player>()
                    .ForMember(dest => dest.Deleted, opt => opt.MapFrom(src => StatusDelete.Active));
                 cfg.CreateMap<TeamCreatePostParameterModel, Team>()
