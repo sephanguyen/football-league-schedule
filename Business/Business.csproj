@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ApiConfiguration\ApiConfiguration.csproj" />
+    <ProjectReference Include="..\Model\Model.csproj" />
     <ProjectReference Include="..\Repositories\Repositories.csproj" />
   </ItemGroup>
 
