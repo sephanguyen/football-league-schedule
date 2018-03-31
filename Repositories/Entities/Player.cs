@@ -12,32 +12,40 @@ namespace Repositories.Entities
     public class Player
     {
         [Key, Identity]
-        [Column("id")]
+        [Column("Id")]
         public int Id { get; set; }
 
         //[Column("name_player")]
         //public string NamePlayer { get; set; }
-        [Column("first_name")]
+        [Column("FirstName")]
         public string FirstName { get; set; }
-        [Column("last_name")]
+        [Column("LastName")]
         public string LastName { get; set; }
-        [Column("nationality")]
+        [Column("Nationality")]
         public string Nationality { get; set; }
-        [Column("date_of_birth")]
+        [Column("DOB")]
         public DateTime? DateOfBirth { get; set; }
-        [Column("contract_start_date")]
-        public DateTime? ContractStartDate { get; set; }
-        [Column("contract_end_date")]
-        public DateTime? ContractEndDate { get; set; }
+    
         [Column("image")]
         public string Image { get; set; }
-        [Column("team_id")]
+        [Column("TeamId")]
         public int TeamId { get; set; }
 
-        [InnerJoin("Teams", "team_id", "id")]
+        [InnerJoin("Teams", "TeamId", "Id")]
         public virtual Team Team { get; set; }
+
+        [Column("PositionId")]
+        public int PositionId { get; set; }
+
+        [InnerJoin("Positions", "PositionId", "Id")]
+        public virtual Position Position { get; set; }
+
         [Status]
-        [Column("is_deleted")]
+        [Column("IsForeign")]
+        public StatusForeign Foreign { get; set; }
+
+        [Status]
+        [Column("Deleted")]
         public StatusDelete Deleted { get; set; }
     }
 }
