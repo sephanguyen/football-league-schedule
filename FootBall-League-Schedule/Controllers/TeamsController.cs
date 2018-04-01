@@ -85,7 +85,7 @@ namespace FootBallLeagueSchedule.Controllers
                 return BadRequest();
             }
             var teamEntity = Mapper.Map<Team>(model);
-            if(!(await _managerTeamAndPlayerBusiness.AddTeam(teamEntity)))
+            if(!(await _managerTeamAndPlayerBusiness.AddOrUpdateTeam(teamEntity)))
             {
                 throw new Exception("Creating an team failed on save.");
             }

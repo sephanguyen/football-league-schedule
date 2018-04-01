@@ -26,7 +26,7 @@ namespace Repositories.Entities
         [Column("DOB")]
         public DateTime? DateOfBirth { get; set; }
     
-        [Column("image")]
+        [Column("Image")]
         public string Image { get; set; }
         [Column("TeamId")]
         public int TeamId { get; set; }
@@ -42,7 +42,7 @@ namespace Repositories.Entities
 
         [Status]
         [Column("IsForeign")]
-        public StatusForeign Foreign { get; set; }
+        public StatusForeign IsForeign { get; set; }
 
         [Status]
         [Column("Deleted")]

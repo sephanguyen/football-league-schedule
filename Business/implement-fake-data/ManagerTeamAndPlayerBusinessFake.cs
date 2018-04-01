@@ -12,6 +12,11 @@ namespace Business.implement_fake_data
 {
     public class ManagerTeamAndPlayerBusinessFake : IManagerTeamAndPlayerBusiness
     {
+        public Task<bool> AddOrUpdateTeam(Team entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<bool> AddTeam(Team entity)
         {
             throw new System.NotImplementedException();

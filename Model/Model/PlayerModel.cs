@@ -18,7 +18,7 @@ namespace Model.Model
         public int TeamId { get; set; }
         public string TeamName { get; set; }
 
-        public StatusForeign Foreign { get; set; }
+        public StatusForeign IsForeign { get; set; }
 
         public int PositionId { get; set; }
         public string PositionName { get; set; }

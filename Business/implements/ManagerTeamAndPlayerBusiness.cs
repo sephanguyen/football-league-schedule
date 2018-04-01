@@ -7,6 +7,7 @@ using Model.Model;
 using Model.PostParametersModels;
 using Repositories.ConnectionBase;
 using Repositories.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -49,43 +50,48 @@ namespace Business.implements
             var insertIsComplete = false;
             using (var trans = DbContext.BeginTransaction())
             {
-                var createTeamSuccess = await DbContext.TeamRepository.InsertAsync(entity, trans);
-                if (entity.Players.Any() && createTeamSuccess)
-                {
-                    entity.Players.Select(c => { c.TeamId = entity.Id; return c; }).ToList();
-                    var num = await DbContext.PlayerRepository.BulkInsertAsync(entity.Players, trans);
-                    if (num < 0)
-                    {
-                        trans.Rollback();
-                    }
-                }
-                trans.Commit();
-                insertIsComplete = true;
+                
             }
             return insertIsComplete;
         }
-        public async Task<bool> UpdateTeam(Team entity)
+        public async Task<bool> AddOrUpdateTeam(Team entity)
         {
-            var updateIsComplete = false;
+            var addOrUpdateIsComplete = false;
             using (var trans = DbContext.BeginTransaction())
             {
-                var updateTeamSuccess = await DbContext.TeamRepository.UpdateAsync(entity, trans);
-                if (updateTeamSuccess)
-                {
-                    //var listPlayerUpdate = entity.Players.Select(p => p.Id);
-                    //var listPlayerInsert;
+                if(entity.Id != 0) {
+                    var updateTeamSuccess = await DbContext.TeamRepository.UpdateAsync(entity, trans);
+                    if (updateTeamSuccess)
+                    {
+                        var listPlayerUpdate = entity.Players.Where(p => p.Id != 0);
+                        var listPlayerInsert = entity.Players.Where(p=> p.Id == 0);
 
-                    //entity.Players.Select(c => { c.TeamId = entity.Id; return c; }).ToList();
-                    //var num = await DbContext.PlayerRepository.BulkInsertAsync(entity.Players, trans);
-                    //if (num < 0)
-                    //{
-                    //    trans.Rollback();
-                    //}
+                        var taskUpdate =  DbContext.PlayerRepository.BulkUpdateAsync(listPlayerUpdate, trans);
+                        var taskInsert =  DbContext.PlayerRepository.BulkInsertAsync(listPlayerInsert, trans);
+                        try {
+                            await Task.WhenAll(taskUpdate, taskInsert);
+                        }
+                        catch(Exception) {
+                            trans.Rollback();
+                        }
+                    }
+                }else {
+                    var createTeamSuccess = await DbContext.TeamRepository.InsertAsync(entity, trans);
+                    if (entity.Players.Any() && createTeamSuccess)
+                    {
+                        entity.Players.Select(c => { c.TeamId = entity.Id; return c; }).ToList();
+                        var num = await DbContext.PlayerRepository.BulkInsertAsync(entity.Players, trans);
+                        if (num < 0)
+                        {
+                            trans.Rollback();
+                        }
+                    }
                 }
+                
                 trans.Commit();
-                updateIsComplete = true;
+                addOrUpdateIsComplete = true;
             }
-            return updateIsComplete;
+            return addOrUpdateIsComplete;
         }
         #endregion
 
@@ -93,12 +99,12 @@ namespace Business.implements
 
         public async Task<IEnumerable<Player>> GetPlayersForTeam(int teamId)
         {
-            return await DbContext.PlayerRepository.FindAllAsync<Team>(x => x.TeamId == teamId, x => x.Team);
+            return await DbContext.PlayerRepository.FindAllAsync<Team, Position>(x => x.TeamId == teamId, x => x.Team, p => p.Position);
         }
 
         public async Task<Player> GetPlayerForTeam(int teamId, int playerId)
         {
-            return await DbContext.PlayerRepository.FindAsync<Team>(x => x.TeamId == teamId && x.Id == playerId, x => x.Team);
+            return await DbContext.PlayerRepository.FindAsync<Team, Position>(x => x.TeamId == teamId && x.Id == playerId, x => x.Team, p => p.Position);
         }
 
          public async Task<bool> UpdatePlayer(Player entity)

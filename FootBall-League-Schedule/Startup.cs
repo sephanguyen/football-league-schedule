@@ -133,7 +133,8 @@ namespace FootBallLeagueSchedule
                 cfg.CreateMap<Player, PlayerModel>()
                     .ForMember(dest => dest.Name, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
                     .ForMember(dest => dest.TeamName, opt => opt.MapFrom(src => src.Team.Name))
-                    .ForMember(dest => dest.Age, opt => opt.MapFrom(src => src.DateOfBirth.GetCurrentAge()));
+                    .ForMember(dest => dest.Age, opt => opt.MapFrom(src => src.DateOfBirth.GetCurrentAge()))
+                    .ForMember(dest => dest.PositionName, opt => opt.MapFrom(src => src.Position.Name));
                 cfg.CreateMap<Match, MatchModel>()
                     .ForMember(dest => dest.MatchDate, opt => opt.MapFrom(src => src.MatchDate.ToString("dd/MM/yyyy")))
                     .ForMember(dest => dest.MatchDay, opt => opt.MapFrom(src => src.MatchDate.DayOfWeek.ToString()))
@@ -141,7 +142,8 @@ namespace FootBallLeagueSchedule
                     .ForMember(dest => dest.TeamAwayName, opt => opt.MapFrom(src => src.TeamAway.Name))
                     .ForMember(dest => dest.TeamHomeName, opt => opt.MapFrom(src => src.TeamHome.Name));
                 cfg.CreateMap<PlayerCreatePostParameterModel, Player>()
-                   .ForMember(dest => dest.Deleted, opt => opt.MapFrom(src => StatusDelete.Active));
+                   .ForMember(dest => dest.Deleted, opt => opt.MapFrom(src => StatusDelete.Active))
+                   .ForMember(dest => dest.IsForeign, opt => opt.MapFrom(src => ParserForeign.Parse(src.IsForeign)));
                 cfg.CreateMap<TeamCreatePostParameterModel, Team>()
                     .ForMember(dest => dest.Deleted, opt => opt.MapFrom(src => StatusDelete.Active))
                     .ForMember(dest => dest.Players, opt => opt.MapFrom(src => src.Players));
