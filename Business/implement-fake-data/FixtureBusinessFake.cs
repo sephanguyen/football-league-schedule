@@ -49,6 +49,9 @@ namespace Business.implement_fake_data
             };
         }
 
-        
+        public Task<bool> UpdateMatch(UpdateMatchPostParametersModel updateMatchModelPostParameter)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

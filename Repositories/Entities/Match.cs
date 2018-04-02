@@ -2,6 +2,7 @@
 using MicroOrm.Dapper.Repositories.Attributes;
 using MicroOrm.Dapper.Repositories.Attributes.Joins;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -39,6 +40,9 @@ namespace Repositories.Entities
         public int SeasonId { get; set; }
         [InnerJoin("Seasons", "SeasonId", "Id")]
         public virtual Season Season { get; set; }
+
+        [LeftJoin("Goals", "Id", "MatchesId")]
+        public virtual IEnumerable<Goal> Goals { get; set; }
 
         [Column("StadiumName")]
         public string StadiumName { get; set; }

@@ -14,6 +14,7 @@ namespace Business.interfaces
         Task<IEnumerable<Match>> GetListFixture(ListFixturePostParametersModel matchPostParameters);
 
         Task<IEnumerable<Match>> GenerateFixture();
+        Task<bool> UpdateMatch(UpdateMatchPostParametersModel updateMatchModelPostParameter) ;
        
     }
 }

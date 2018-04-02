@@ -1,6 +1,7 @@
 ﻿
 
 using System;
+using System.Collections.Generic;
 
 namespace Model.Model
 {
@@ -21,5 +22,7 @@ namespace Model.Model
 
         public int SeasonId { get; set; }
         public string SeasonName { get; set; }
+
+        public List<GoalModel> Goals { get; set; }
     }
 }

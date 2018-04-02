@@ -63,5 +63,38 @@ namespace Business.implements
         {
             throw new System.NotImplementedException();
         }
+
+        public async Task<bool> UpdateMatch(UpdateMatchPostParametersModel updateMatchModelPostParameter)
+        {
+            bool updateCompleted = false;
+            var matchUpdate = await DbContext.MatchRepository.FindByIdAsync(updateMatchModelPostParameter.MatchId);
+            if(matchUpdate != null) {
+                matchUpdate.ScoreHome = updateMatchModelPostParameter.ScoreHome;
+                matchUpdate.ScoreAway = updateMatchModelPostParameter.ScoreAway;
+                using (var trans = DbContext.BeginTransaction())
+                {
+                    try {
+                        await DbContext.MatchRepository.UpdateAsync(matchUpdate);
+                        if(updateMatchModelPostParameter.Goals.Count > 0) {
+                            List<Goal> goals = new List<Goal>();
+                            foreach(var goalModel in updateMatchModelPostParameter.Goals) {
+                                Goal goal = new Goal();
+                                goal.MatchId = matchUpdate.Id;
+                                goal.PlayerId = goalModel.PlayerId;
+                                goal.TimeGoal = goalModel.TimeGoal;
+                                goal.Deleted = (StatusDelete)goalModel.Deleted;
+                                goals.Add(goal);
+                            }
+                            await DbContext.GoalRepository.BulkInsertAsync(goals);
+                        }
+                    }catch(Exception) {
+                        trans.Rollback();
+                    }
+                    trans.Commit();
+                    updateCompleted = true;
+                }
+            }
+            return updateCompleted;
+        }
     }
 }

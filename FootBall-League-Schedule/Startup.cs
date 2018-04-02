@@ -135,12 +135,19 @@ namespace FootBallLeagueSchedule
                     .ForMember(dest => dest.TeamName, opt => opt.MapFrom(src => src.Team.Name))
                     .ForMember(dest => dest.Age, opt => opt.MapFrom(src => src.DateOfBirth.GetCurrentAge()))
                     .ForMember(dest => dest.PositionName, opt => opt.MapFrom(src => src.Position.Name));
+                cfg.CreateMap<Goal, GoalModel>()
+                    .ForMember(dest => dest.MatchName, opt => opt.MapFrom(src => $"{src.Match.TeamHome.Name}-{src.Match.TeamAway.Name}"))
+                    .ForMember(dest => dest.PlayerName, opt => opt.MapFrom(src => $"{src.Players.FirstName} {src.Players.LastName}"))
+                    .ForMember(dest => dest.TypeGoalName, opt => opt.MapFrom(src => src.TypeGoal.Name))
+                    .ForMember(dest => dest.ValueGoal, opt => opt.MapFrom(src => src.TypeGoal.Value))
+                    .ForMember(dest => dest.TimeGoal, opt => opt.MapFrom(src => src.Match.MatchDate - src.TimeGoal));
                 cfg.CreateMap<Match, MatchModel>()
                     .ForMember(dest => dest.MatchDate, opt => opt.MapFrom(src => src.MatchDate.ToString("dd/MM/yyyy")))
                     .ForMember(dest => dest.MatchDay, opt => opt.MapFrom(src => src.MatchDate.DayOfWeek.ToString()))
                     .ForMember(dest => dest.MatchTime, opt => opt.MapFrom(src => src.MatchDate.ToString("HH:mm")))
                     .ForMember(dest => dest.TeamAwayName, opt => opt.MapFrom(src => src.TeamAway.Name))
-                    .ForMember(dest => dest.TeamHomeName, opt => opt.MapFrom(src => src.TeamHome.Name));
+                    .ForMember(dest => dest.TeamHomeName, opt => opt.MapFrom(src => src.TeamHome.Name))
+                    .ForMember(dest => dest.Goals, opt => opt.MapFrom(src => src.Goals));
                 cfg.CreateMap<PlayerCreatePostParameterModel, Player>()
                    .ForMember(dest => dest.Deleted, opt => opt.MapFrom(src => StatusDelete.Active))
                    .ForMember(dest => dest.IsForeign, opt => opt.MapFrom(src => ParserForeign.Parse(src.IsForeign)));

@@ -31,5 +31,13 @@ namespace FootBallLeagueSchedule.Controllers
             var fixtureList = Mapper.Map<IEnumerable<MatchModel>>(fixtureListFromBus);
             return Ok(fixtureList);
         }
+
+        [HttpPost(Name = "UpdateMatch")]
+        public async Task<IActionResult> UpdateMatch(UpdateMatchPostParametersModel updateMatchModelPostParameter) {
+            var updateMatchResult = await _fixtireBusiness.UpdateMatch(updateMatchModelPostParameter);
+            if(updateMatchResult)
+                return Ok("Update Success");
+            return StatusCode(500, "Update error");
+        }
     }
 }
