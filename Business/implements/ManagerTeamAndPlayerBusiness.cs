@@ -63,13 +63,15 @@ namespace Business.implements
                     var updateTeamSuccess = await DbContext.TeamRepository.UpdateAsync(entity, trans);
                     if (updateTeamSuccess)
                     {
+                        entity.Players.Select(c => { c.TeamId = entity.Id; return c; }).ToList();
                         var listPlayerUpdate = entity.Players.Where(p => p.Id != 0);
                         var listPlayerInsert = entity.Players.Where(p=> p.Id == 0);
 
-                        var taskUpdate =  DbContext.PlayerRepository.BulkUpdateAsync(listPlayerUpdate, trans);
-                        var taskInsert =  DbContext.PlayerRepository.BulkInsertAsync(listPlayerInsert, trans);
+                        var taskUpdate = DbContext.PlayerRepository.BulkUpdateAsync(listPlayerUpdate, trans);
+                        var taskInsert = DbContext.PlayerRepository.BulkInsertAsync(listPlayerInsert, trans);
                         try {
                             await Task.WhenAll(taskUpdate, taskInsert);
+                            
                         }
                         catch(Exception) {
                             trans.Rollback();
