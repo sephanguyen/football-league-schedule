@@ -67,6 +67,8 @@ namespace Business.implements
                  MatchDate = DateTime.Now,
                  Round = 1,
                  TeamHomeId = 1,
+                 ScoreAway = 1,
+                 ScoreHome = 1,
                  TeamHome = new Team() {
                      Id = 1,
                      Name = "Manchester United"
@@ -77,7 +79,26 @@ namespace Business.implements
                      Name = "Manchester City"
                  },
                  SeasonId = 1,
-                 StadiumName = "Entihad"
+                 StadiumName = "Entihad",
+                 Goals = new List<Goal>() {
+                     new Goal() {
+                         PlayerId = 1,
+                         Players = new Player() {
+                             Id = 1,
+                             FirstName = "Segri",
+                             LastName = "Aguero"
+                         },
+                         MatchId = 1,
+                         TimeGoal = DateTime.Now,
+                         TypeGoalId = 1,
+                         TypeGoal = new TypeGoal() {
+                             Id = 1,
+                             Name = "A",
+                             Value = 3
+                         }
+                         
+                     }
+                 }
                 },
                 new Match() {
                   Id = 2,
