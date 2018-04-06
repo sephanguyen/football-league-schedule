@@ -59,9 +59,44 @@ namespace Business.implements
             return PagedList<Player>.Create(collectionBeforePaging, playerPostParameters.PageNumber, playerPostParameters.PageSize);
         }
 
-        public Task<IEnumerable<Match>> GetListFixture(ListFixturePostParametersModel matchPostParameters)
+        public async Task<IEnumerable<Match>> GetListFixture(ListFixturePostParametersModel matchPostParameters)
         {
-            throw new System.NotImplementedException();
+            return new List<Match> {
+                new Match() {
+                  Id = 1,
+                 MatchDate = DateTime.Now,
+                 Round = 1,
+                 TeamHomeId = 1,
+                 TeamHome = new Team() {
+                     Id = 1,
+                     Name = "Manchester United"
+                 },
+                 TeamAwayId = 2,
+                 TeamAway = new Team() {
+                     Id = 2,
+                     Name = "Manchester City"
+                 },
+                 SeasonId = 1,
+                 StadiumName = "Entihad"
+                },
+                new Match() {
+                  Id = 2,
+                 MatchDate = DateTime.Now,
+                 Round = 1,
+                 TeamHomeId = 3,
+                 TeamHome = new Team() {
+                     Id = 3,
+                     Name = "Barcelona"
+                 },
+                 TeamAwayId = 4,
+                 TeamAway = new Team() {
+                     Id = 4,
+                     Name = "Real Madrid"
+                 },
+                 SeasonId = 1,
+                 StadiumName = "Noucamp"
+                }
+            };
         }
 
         public async Task<bool> UpdateMatch(UpdateMatchPostParametersModel updateMatchModelPostParameter)

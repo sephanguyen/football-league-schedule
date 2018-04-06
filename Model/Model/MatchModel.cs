@@ -14,7 +14,7 @@ namespace Model.Model
         public string MatchTime { get; set; }
         public string MatchDay { get; set; }
         public short Round { get; set; }
-        public string Stadium { get; set; }
+        public string StadiumName { get; set; }
         public int TeamAwayId { get; set; }
         public string TeamAwayName { get; set; }
         public int TeamHomeId { get; set; }
