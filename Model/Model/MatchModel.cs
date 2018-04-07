@@ -23,6 +23,7 @@ namespace Model.Model
         public int SeasonId { get; set; }
         public string SeasonName { get; set; }
 
+
         public List<GoalModel> Goals { get; set; }
     }
 }

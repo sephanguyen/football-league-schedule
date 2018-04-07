@@ -85,13 +85,30 @@ namespace FootBallLeagueSchedule.Controllers
                 return BadRequest();
             }
             var teamEntity = Mapper.Map<Team>(model);
-            if(!(await _managerTeamAndPlayerBusiness.AddOrUpdateTeam(teamEntity)))
+            if(!(await _managerTeamAndPlayerBusiness.AddTeam(teamEntity)))
             {
                 throw new Exception("Creating an team failed on save.");
             }
             var teamToReturn = Mapper.Map<TeamModel>(teamEntity);
             return CreatedAtRoute("GetTeam", new { id = teamEntity.Id }, teamToReturn);
         }
+
+        [HttpPut(Name = "UpdateTeam")]
+        public async Task<IActionResult> UpdateTeam([FromBody] TeamUpdatePostParameterModel model)
+        {
+            if(model == null)
+            {
+                return BadRequest();
+            }
+            var teamEntity = Mapper.Map<Team>(model);
+            if(!(await _managerTeamAndPlayerBusiness.UpdateTeam(teamEntity)))
+            {
+                throw new Exception("Creating an team failed on save.");
+            }
+            var teamToReturn = Mapper.Map<TeamModel>(teamEntity);
+            return CreatedAtRoute("GetTeam", new { id = teamEntity.Id }, teamToReturn);
+        }
+
 
     }
 }

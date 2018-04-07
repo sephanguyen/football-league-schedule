@@ -47,53 +47,67 @@ namespace Business.implements
         public async Task<bool> AddTeam(Team entity)
         {
             //await DbContext.TeamRepository.InsertAsync(entity);
-            var insertIsComplete = false;
             using (var trans = DbContext.BeginTransaction())
             {
-                
-            }
-            return insertIsComplete;
-        }
-        public async Task<bool> AddOrUpdateTeam(Team entity)
-        {
-            var addOrUpdateIsComplete = false;
-            using (var trans = DbContext.BeginTransaction())
-            {
-                if(entity.Id != 0) {
-                    var updateTeamSuccess = await DbContext.TeamRepository.UpdateAsync(entity, trans);
-                    if (updateTeamSuccess)
-                    {
-                        entity.Players.Select(c => { c.TeamId = entity.Id; return c; }).ToList();
-                        var listPlayerUpdate = entity.Players.Where(p => p.Id != 0);
-                        var listPlayerInsert = entity.Players.Where(p=> p.Id == 0);
-
-                        var taskUpdate = DbContext.PlayerRepository.BulkUpdateAsync(listPlayerUpdate, trans);
-                        var taskInsert = DbContext.PlayerRepository.BulkInsertAsync(listPlayerInsert, trans);
-                        try {
-                            await Task.WhenAll(taskUpdate, taskInsert);
-                            
-                        }
-                        catch(Exception) {
-                            trans.Rollback();
-                        }
-                    }
-                }else {
-                    var createTeamSuccess = await DbContext.TeamRepository.InsertAsync(entity, trans);
-                    if (entity.Players.Any() && createTeamSuccess)
-                    {
+                var createTeamSuccess = await DbContext.TeamRepository.InsertAsync(entity, trans);
+                if(createTeamSuccess){
+                    if(entity.Players.Any()) {
                         entity.Players.Select(c => { c.TeamId = entity.Id; return c; }).ToList();
                         var num = await DbContext.PlayerRepository.BulkInsertAsync(entity.Players, trans);
                         if (num < 0)
                         {
                             trans.Rollback();
+                            return false;
                         }
+                        trans.Commit(); 
                     }
+                    return true;
                 }
-                
-                trans.Commit();
-                addOrUpdateIsComplete = true;
+                else{
+                    return false;
+                }
             }
-            return addOrUpdateIsComplete;
+        }
+        public async Task<bool> UpdateTeam(Team entity)
+        {
+            // var addOrUpdateIsComplete = false;
+            // using (var trans = DbContext.BeginTransaction())
+            // {
+            //     if(entity.Id != 0) {
+            //         var updateTeamSuccess = await DbContext.TeamRepository.UpdateAsync(entity, trans);
+            //         if (updateTeamSuccess)
+            //         {
+            //             entity.Players.Select(c => { c.TeamId = entity.Id; return c; }).ToList();
+            //             var listPlayerUpdate = entity.Players.Where(p => p.Id != 0);
+            //             var listPlayerInsert = entity.Players.Where(p=> p.Id == 0);
+
+            //             var taskUpdate = DbContext.PlayerRepository.BulkUpdateAsync(listPlayerUpdate, trans);
+            //             var taskInsert = DbContext.PlayerRepository.BulkInsertAsync(listPlayerInsert, trans);
+            //             try {
+            //                 await Task.WhenAll(taskUpdate, taskInsert);
+                            
+            //             }
+            //             catch(Exception) {
+            //                 trans.Rollback();
+            //             }
+            //         }
+            //     }else {
+            //         var createTeamSuccess = await DbContext.TeamRepository.InsertAsync(entity, trans);
+            //         if (entity.Players.Any() && createTeamSuccess)
+            //         {
+            //             entity.Players.Select(c => { c.TeamId = entity.Id; return c; }).ToList();
+            //             var num = await DbContext.PlayerRepository.BulkInsertAsync(entity.Players, trans);
+            //             if (num < 0)
+            //             {
+            //                 trans.Rollback();
+            //             }
+            //         }
+            //     }
+                
+            //     trans.Commit();
+            //     addOrUpdateIsComplete = true;
+            // }
+            return await DbContext.TeamRepository.UpdateAsync(entity);
         }
         #endregion
 
@@ -113,6 +127,23 @@ namespace Business.implements
          {
             return await DbContext.PlayerRepository.UpdateAsync(entity);
          }
+
+        public async Task<bool> AddPlayer(Player playerEntity)
+        {
+            return await DbContext.PlayerRepository.InsertAsync(playerEntity);
+        }
+
+        public async Task<int> AddPlayers(int teamId, IEnumerable<Player> playersEntity)
+        {
+            playersEntity.Select(c => { c.TeamId = teamId; return c; }).ToList();
+            return await DbContext.PlayerRepository.BulkInsertAsync(playersEntity);
+        }
+
+        public async Task<bool> UpdatePlayers(IEnumerable<Player> playersEntity)
+        {
+            return await DbContext.PlayerRepository.BulkUpdateAsync(playersEntity);
+        }
+
 
         #endregion
     }

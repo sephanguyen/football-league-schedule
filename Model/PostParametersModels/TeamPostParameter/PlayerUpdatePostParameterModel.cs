@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System;
 
 namespace Model.PostParametersModels.TeamPostParameter
 {
-    public class PlayerCreatePostParameterModel
+    public class PlayerUpdatePostParameterModel
     {
+        public int Id { get; set; }
         public string LastName { get; set; }
         public string Nationality { get; set; }
         public DateTime? DateOfBirth { get; set; }

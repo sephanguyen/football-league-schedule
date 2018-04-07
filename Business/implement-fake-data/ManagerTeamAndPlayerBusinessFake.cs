@@ -17,6 +17,21 @@ namespace Business.implement_fake_data
             throw new NotImplementedException();
         }
 
+        public Task<bool> AddPlayer(Player playerEntity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> AddPlayers(IEnumerable<Player> playersEntity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> AddPlayers(int teamId, IEnumerable<Player> playersEntity)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<bool> AddTeam(Team entity)
         {
             throw new System.NotImplementedException();
@@ -135,6 +150,11 @@ namespace Business.implement_fake_data
         }
 
         public Task<bool> UpdatePlayer(Player entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> UpdatePlayers(IEnumerable<Player> playersEntity)
         {
             throw new NotImplementedException();
         }

@@ -154,6 +154,8 @@ namespace FootBallLeagueSchedule
                 cfg.CreateMap<TeamCreatePostParameterModel, Team>()
                     .ForMember(dest => dest.Deleted, opt => opt.MapFrom(src => StatusDelete.Active))
                     .ForMember(dest => dest.Players, opt => opt.MapFrom(src => src.Players));
+                cfg.CreateMap<TeamUpdatePostParameterModel, Team>();
+                cfg.CreateMap<PlayerUpdatePostParameterModel, Player>();
             });
         }
 

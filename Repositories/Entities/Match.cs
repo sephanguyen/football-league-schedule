@@ -46,5 +46,8 @@ namespace Repositories.Entities
 
         [Column("StadiumName")]
         public string StadiumName { get; set; }
+
+        [Column("IsCompleted")]
+        public bool IsCompleted { get; set; }
     }
 }
