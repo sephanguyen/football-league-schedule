@@ -109,6 +109,11 @@ namespace Business.implements
             // }
             return await DbContext.TeamRepository.UpdateAsync(entity);
         }
+        public async Task<bool> TeamExists(int teamId)
+        {
+            var team = await DbContext.TeamRepository.FindByIdAsync(teamId) ;
+            return (team != null ? true : false);
+        }
         #endregion
 
         #region Business For Player
@@ -143,6 +148,8 @@ namespace Business.implements
         {
             return await DbContext.PlayerRepository.BulkUpdateAsync(playersEntity);
         }
+
+        
 
 
         #endregion

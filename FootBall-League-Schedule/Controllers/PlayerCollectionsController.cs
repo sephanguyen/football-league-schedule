@@ -31,6 +31,9 @@ namespace FootBallLeagueSchedule.Controllers
             {
                 return BadRequest();
             }
+            if(!(await _managerTeamAndPlayerBusiness.TeamExists(teamId))) {
+                return NotFound("Team not found");
+            }
             var playersEntity = Mapper.Map<IEnumerable<Player>>(playersCreateModel);
             if((await _managerTeamAndPlayerBusiness.AddPlayers(teamId, playersEntity)) < 0)
             {

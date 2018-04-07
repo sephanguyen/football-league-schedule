@@ -28,14 +28,24 @@ namespace FootBallLeagueSchedule.Controllers
         [HttpGet()]
         public async Task<IActionResult> GetPlayersForTeam(int teamId)
         {
+            if(!(await _managerTeamAndPlayerBusiness.TeamExists(teamId))) {
+                return NotFound("Team not found");
+            }
             var playersForTeamFromBus = await _managerTeamAndPlayerBusiness.GetPlayersForTeam(teamId);
             var playersForTeam = Mapper.Map<IEnumerable<PlayerModel>>(playersForTeamFromBus);
             return Ok(playersForTeam);
         }
+        
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPlayerForTeam(int teamId, int id)
         {
+            if(!(await _managerTeamAndPlayerBusiness.TeamExists(teamId))) {
+                return NotFound("Team not found");
+            }
             var playerForTeamFromBus = await _managerTeamAndPlayerBusiness.GetPlayerForTeam(teamId, id);
+            if(playerForTeamFromBus == null) {
+                return NotFound("Player not found");
+            }
             var playersForTeam = Mapper.Map<PlayerModel>(playerForTeamFromBus);
             return Ok(playersForTeam);
         }
@@ -46,6 +56,9 @@ namespace FootBallLeagueSchedule.Controllers
             if(playerCreateModel == null)
             {
                 return BadRequest();
+            }
+            if(!(await _managerTeamAndPlayerBusiness.TeamExists(teamId))) {
+                return NotFound("Team not found");
             }
             var playerEntity = Mapper.Map<Player>(playerCreateModel);
             if(!(await _managerTeamAndPlayerBusiness.AddPlayer(playerEntity)))

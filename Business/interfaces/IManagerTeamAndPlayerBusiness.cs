@@ -18,6 +18,7 @@ namespace Business.interfaces
         Task<bool> AddPlayer(Player playerEntity);
         Task<int> AddPlayers(int teamId, IEnumerable<Player> playersEntity);
         Task<bool> UpdatePlayers(IEnumerable<Player> playersEntity);
+        Task<bool> TeamExists(int teamId);
         // Task<bool> AddOrUpdateTeam(Team entity);
     }
 }
