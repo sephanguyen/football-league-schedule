@@ -17,6 +17,11 @@ namespace Repositories.ConnectionBase
         private SqlGeneratorConfig _config;
         private IMatchRepository _matchRepository;
         private IGoalRepository _goalRepository;
+        private IPositionsRepository _positionsRepository;
+        private ITypeGoalsRepository _typeGoalsRepository;
+        private IConfigLeagueRepository _configLeagueRepository;
+        private IHistoryTeamRepository _historyTeamRepository;
+
         public DbContext(IDbConnection connection) : base(connection)
         {
             if (connection != null)
@@ -47,5 +52,13 @@ namespace Repositories.ConnectionBase
         public IMatchRepository MatchRepository => _matchRepository ?? (_matchRepository = new MatchRepository(Connection, _config));
 
         public IGoalRepository GoalRepository => _goalRepository ?? (_goalRepository = new GoalRepository(Connection, _config));
+
+        public IPositionsRepository PositionsRepository => _positionsRepository ?? (_positionsRepository = new PositionsRepository(Connection, _config));
+
+        public ITypeGoalsRepository TypeGoalsRepository => _typeGoalsRepository ?? (_typeGoalsRepository = new TypeGoalsRepository(Connection, _config));
+
+        public IConfigLeagueRepository ConfigLeagueRepository => _configLeagueRepository ?? (_configLeagueRepository = new ConfigLeagueRepository(Connection, _config));
+
+        public IHistoryTeamRepository HistoryTeamRepository => _historyTeamRepository ?? (_historyTeamRepository = new HistoryTeamRepository(Connection, _config));
     }
 }

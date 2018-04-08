@@ -12,5 +12,9 @@ namespace Repositories.ConnectionBase
 
         IMatchRepository MatchRepository { get; }
         IGoalRepository GoalRepository { get; }
+        IPositionsRepository PositionsRepository { get; }
+        ITypeGoalsRepository TypeGoalsRepository { get; }
+        IConfigLeagueRepository ConfigLeagueRepository { get; }
+        IHistoryTeamRepository HistoryTeamRepository { get; }
     }
 }

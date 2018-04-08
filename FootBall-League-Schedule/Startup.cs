@@ -25,6 +25,7 @@ using Model.PostParametersModels.TeamPostParameter;
 using Repositories.Enum;
 using System.Threading.Tasks;
 using Business.Extension;
+using Models.ConfigPostParameter;
 
 namespace FootBallLeagueSchedule
 {
@@ -64,6 +65,7 @@ namespace FootBallLeagueSchedule
             services.AddTransient<IGeneraterFixture, GeneraterRoundRobin>();
             //services.AddTransient<IManagerTeamAndPlayerBusiness, ManagerTeamAndPlayerBusinessFake>();
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+            services.AddTransient<ICommonManager, CommonManager>();
             services.AddScoped<IUrlHelper, UrlHelper>(implementationFactory => {
                 var actionContext = implementationFactory.GetService<IActionContextAccessor>().ActionContext;
                 return new UrlHelper(actionContext);
@@ -156,6 +158,8 @@ namespace FootBallLeagueSchedule
                     .ForMember(dest => dest.Players, opt => opt.MapFrom(src => src.Players));
                 cfg.CreateMap<TeamUpdatePostParameterModel, Team>();
                 cfg.CreateMap<PlayerUpdatePostParameterModel, Player>();
+                cfg.CreateMap<ConfigCreatePostParameter, ConfigLeague>();
+                cfg.CreateMap<ConfigUpdateParameter, ConfigLeague>();
             });
         }
 
