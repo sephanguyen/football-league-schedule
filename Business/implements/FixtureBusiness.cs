@@ -31,33 +31,33 @@ namespace Business.implements
         {
             var listTeam = await (DbContext.TeamRepository.FindAllAsync(x => x.Deleted != StatusDelete.Deleted));
             IList<Match> listmatch = _generaterFixture.RandomMatchs(listTeam.ToList());
-            using (var trans = DbContext.BeginTransaction())
-            {
-               
-            };
+            var countRecordInsert = await DbContext.MatchRepository.BulkInsertAsync(listmatch);
+            if(countRecordInsert <= 0) {
+                throw new Exception("Creating matchs failed on save.");
+            }
             return listmatch;
         }
 
-        public async Task<PagedList<Player>> GetAllPlayerWithTeam(PlayerPostParametersModel playerPostParameters)
-        {
-            IList<Player> collectionBeforePaging; 
-            if (!string.IsNullOrEmpty(playerPostParameters.SearchQuery))
-            {
-                var searchQueryForWhereClause = playerPostParameters.SearchQuery.Trim().ToLowerInvariant();
-                collectionBeforePaging = (await DbContext.PlayerRepository.FindAllAsync(
-                                        x => x.FirstName.ToLowerInvariant().Contains(searchQueryForWhereClause) ||
-                                            x.LastName.ToLowerInvariant().Contains(searchQueryForWhereClause)
-                                        )).ToList();
-            }
-            else
-            {
-                collectionBeforePaging  = (await DbContext.PlayerRepository.FindAllAsync()).ToList();
-            }
+        // public async Task<PagedList<Player>> GetAllPlayerWithTeam(PlayerPostParametersModel playerPostParameters)
+        // {
+        //     IList<Player> collectionBeforePaging; 
+        //     if (!string.IsNullOrEmpty(playerPostParameters.SearchQuery))
+        //     {
+        //         var searchQueryForWhereClause = playerPostParameters.SearchQuery.Trim().ToLowerInvariant();
+        //         collectionBeforePaging = (await DbContext.PlayerRepository.FindAllAsync(
+        //                                 x => x.FirstName.ToLowerInvariant().Contains(searchQueryForWhereClause) ||
+        //                                     x.LastName.ToLowerInvariant().Contains(searchQueryForWhereClause)
+        //                                 )).ToList();
+        //     }
+        //     else
+        //     {
+        //         collectionBeforePaging  = (await DbContext.PlayerRepository.FindAllAsync()).ToList();
+        //     }
             
-            collectionBeforePaging = collectionBeforePaging.ApplySort(playerPostParameters.OrderBy, PropertyMappingService.GetPropertyMapping<PlayerModel, Player>());
+        //     collectionBeforePaging = collectionBeforePaging.ApplySort(playerPostParameters.OrderBy, PropertyMappingService.GetPropertyMapping<PlayerModel, Player>());
 
-            return PagedList<Player>.Create(collectionBeforePaging, playerPostParameters.PageNumber, playerPostParameters.PageSize);
-        }
+        //     return PagedList<Player>.Create(collectionBeforePaging, playerPostParameters.PageNumber, playerPostParameters.PageSize);
+        // }
 
         public async Task<IEnumerable<Match>> GetListFixture(ListFixturePostParametersModel matchPostParameters)
         {

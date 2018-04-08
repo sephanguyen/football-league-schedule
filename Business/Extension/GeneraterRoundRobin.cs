@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Repositories.Entities;
 
 namespace Business.Extension
@@ -14,13 +15,13 @@ namespace Business.Extension
             int num_team = listTeam.Count;
             if (num_team % 2 != 0)
                 throw new ArgumentException("teams number is not even number");
-
+            var listTeamRandom = listTeam.Shuffle().ToList();
             int numRounds = num_team - 1;
             int halfSize = num_team / 2;
             Team firstTeam, secondTeam;
             Match match;
             List<Team> teams = new List<Team>();
-            teams.AddRange(listTeam);
+            teams.AddRange(listTeamRandom);
             teams.RemoveAt(0);
             int teamsSize = teams.Count;
 
@@ -28,8 +29,8 @@ namespace Business.Extension
             {
                 for(int idx = 1; idx < halfSize; idx++)
                 {
-                    firstTeam = listTeam[(round + idx) % teamsSize];
-                    secondTeam = listTeam[(round + teamsSize - idx) % teamsSize];
+                    firstTeam = listTeamRandom[(round + idx) % teamsSize];
+                    secondTeam = listTeamRandom[(round + teamsSize - idx) % teamsSize];
                     match = new Match()
                     {
                         TeamHomeId = firstTeam.Id,

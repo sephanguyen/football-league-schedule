@@ -9,8 +9,6 @@ namespace Business.interfaces
 {
     public interface IFixtureBusiness
     {
-        Task<PagedList<Player>> GetAllPlayerWithTeam(PlayerPostParametersModel playerPostParameters);
-
         Task<IEnumerable<Match>> GetListFixture(ListFixturePostParametersModel matchPostParameters);
 
         Task<IEnumerable<Match>> GenerateFixture();
